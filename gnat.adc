@@ -1,0 +1,27 @@
+
+-- ./jack-client.apk
+pragma source_file_name(jack.client, spec_file_name => "jack-client.ads");
+pragma source_file_name(jack.client, body_file_name => "jack-client.adb");
+
+-- ./jack-error.apk
+pragma source_file_name(jack.error, spec_file_name => "jack-error.ads");
+pragma source_file_name(jack.error, body_file_name => "jack-error.adb");
+
+-- ./jack-port.apk
+pragma source_file_name(jack.port, spec_file_name => "jack-port.ads");
+pragma source_file_name(jack.port, body_file_name => "jack-port.adb");
+
+-- ./jack-sample.apk
+pragma source_file_name(jack.sample, spec_file_name => "jack-sample.ads");
+
+-- ./jack-time.apk
+pragma source_file_name(jack.time, spec_file_name => "jack-time.ads");
+
+-- ./jack-transport.apk
+pragma source_file_name(jack.transport, spec_file_name => "jack-transport.ads");
+
+-- ./jack-types.apk
+pragma source_file_name(jack.types, spec_file_name => "jack-types.ads");
+
+-- ./jack.apk
+pragma source_file_name(jack, spec_file_name => "jack.ads");
