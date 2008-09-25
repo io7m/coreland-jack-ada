@@ -1,3 +1,9 @@
+jack-client.o
+jack-error.o
+jack-port.o
 jack-sample.o
+jack-server.o
+jack-time.o
+jack-transport.o
 jack-types.o
 jack.o

@@ -26,7 +26,7 @@ package jack.port is
   function get_buffer
     (port       : types.port_t;
      num_frames : types.num_frames_t) return types.sample_access_t;
-  pragma import (c, buffer, "jack_port_get_buffer");
+  pragma import (c, get_buffer, "jack_port_get_buffer");
 
   function name (port : types.port_t) return string;
   pragma inline (name);
@@ -153,6 +153,6 @@ package jack.port is
   function by_id
     (client : types.client_t;
      id     : types.port_id_t) return types.port_t;
-  pragma inline (by_id);
+  pragma import (c, by_id, "jack_port_by_id");
 
 end jack.port;

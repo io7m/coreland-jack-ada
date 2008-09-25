@@ -162,6 +162,8 @@ package jack.types is
 
   -- sample type
   type sample_t is new jack.sample.type_t;
+  type sample_access_t is access all sample_t;
+  pragma convention (c, sample_access_t);
 
   -- port flags
   type port_flags_t is new unsigned_t;
@@ -200,5 +202,8 @@ package jack.types is
   init_failure          : constant status_t := 16#100#;
   shared_memory_failure : constant status_t := 16#200#;
   version_error         : constant status_t := 16#400#;
+
+  -- buffer size
+  subtype buffer_size_t is c.unsigned_long;
 
 end jack.types;

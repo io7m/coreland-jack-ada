@@ -1,2 +1,6 @@
-jack.types
+jack.client
+jack.port
+jack.server
+jack.time
 jack.transport
+jack.types

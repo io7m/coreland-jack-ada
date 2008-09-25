@@ -14,6 +14,10 @@ pragma source_file_name(jack.port, body_file_name => "jack-port.adb");
 -- ./jack-sample.apk
 pragma source_file_name(jack.sample, spec_file_name => "jack-sample.ads");
 
+-- ./jack-server.apk
+pragma source_file_name(jack.server, spec_file_name => "jack-server.ads");
+pragma source_file_name(jack.server, body_file_name => "jack-server.adb");
+
 -- ./jack-time.apk
 pragma source_file_name(jack.time, spec_file_name => "jack-time.ads");
 

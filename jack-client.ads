@@ -53,8 +53,8 @@ package jack.client is
   pragma import (c, set_freewheel_callback, "jack_set_freewheel_callback");
 
   function set_freewheel
-    (client    : types.client_t;
-     enable    : boolean) return types.integer_t;
+    (client : types.client_t;
+     enable : boolean) return types.integer_t;
   pragma inline (set_freewheel);
 
   function set_buffer_size
