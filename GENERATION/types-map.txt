@@ -10,18 +10,18 @@ jack.types.client_t:jack_client_t *
 jack.types.freewheel_callback_t:JackFreewheelCallback
 jack.types.graph_order_callback_t:JackGraphOrderCallback
 jack.types.init_callback_t:JackThreadInitCallback
-jack.types.int_client_t:jack_intclient_t;
-jack.types.num_frames_t:jack_nframes_t;
+jack.types.int_client_t:jack_intclient_t
+jack.types.num_frames_t:jack_nframes_t
 jack.types.options_t:jack_options_t
 jack.types.port_connect_callback_t:JackPortConnectCallback
 jack.types.port_flags_t:enum JackPortFlags
-jack.types.port_id_t:jack_port_id_t;
+jack.types.port_id_t:jack_port_id_t
 jack.types.port_register_callback_t:JackPortRegistrationCallback
 jack.types.port_t:jack_port_t *
 jack.types.process_callback_t:JackProcessCallback
 jack.types.sample_rate_callback_t:JackSampleRateCallback
 jack.types.sample_t:jack_default_audio_sample_t
-jack.types.shm_size_t:jack_shmsize_t;
+jack.types.shm_size_t:jack_shmsize_t
 jack.types.status_t:jack_status_t
-jack.types.time_t:jack_time_t;
+jack.types.time_t:jack_time_t
 jack.types.xrun_callback_t:JackXRunCallback
