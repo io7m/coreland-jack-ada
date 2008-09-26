@@ -9,6 +9,12 @@ jack-error.ali jack-error.o jack-port.ali jack-port.o jack-sample.ali \
 jack-sample.o jack-server.ali jack-server.o jack-time.ali jack-time.o \
 jack-transport.ali jack-transport.o jack-types.ali jack-types.o jack.ali jack.o
 
+# Mkf-test
+tests:
+	(cd UNIT_TESTS && make)
+tests_clean:
+	(cd UNIT_TESTS && make clean)
+
 # -- SYSDEPS start
 flags-jack:
 	@echo SYSDEPS jack-flags run create flags-jack 
@@ -193,7 +199,7 @@ conf-cc
 mk-systype:\
 conf-cc
 
-clean-all: sysdeps_clean obj_clean ext_clean
+clean-all: sysdeps_clean tests_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
 	rm -f UNIT_TESTS/ada_size UNIT_TESTS/ada_size.ali UNIT_TESTS/ada_size.o \
