@@ -3,10 +3,10 @@
 
 size_ada=`./ada_size "jack.types.time_t"`
 if [ $? -ne 0 ]; then exit 2; fi
-size_c=`./c_size "jack_time_t;"`
+size_c=`./c_size "jack_time_t"`
 if [ $? -ne 0 ]; then exit 2; fi
 
-printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "jack.types.time_t" "jack_time_t;"
+printf "%8d %8d %s -> %s\n" "${size_ada}" "${size_c}" "jack.types.time_t" "jack_time_t"
 
 if [ ${size_ada} -ne ${size_c} ]
 then

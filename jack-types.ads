@@ -2,11 +2,9 @@ with jack.sample;
 with interfaces.c;
 with system;
 
-generic 
-  type user_data_t is private;
-
-package jack.types is
+generic package jack.types is
   package c renames interfaces.c;
+  package jack_sample is new jack.sample;
 
   -- generic access
   type user_data_access_t is access all user_data_t;
@@ -161,7 +159,7 @@ package jack.types is
   type int_client_t is new uint64_t;
 
   -- sample type
-  type sample_t is new jack.sample.type_t;
+  type sample_t is new jack_sample.type_t;
   type sample_access_t is access all sample_t;
   pragma convention (c, sample_access_t);
 

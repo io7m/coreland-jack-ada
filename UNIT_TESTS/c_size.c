@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 struct {
   const char *type_name;
@@ -21,20 +22,20 @@ struct {
   { "JackFreewheelCallback", sizeof (JackFreewheelCallback) },
   { "JackGraphOrderCallback", sizeof (JackGraphOrderCallback) },
   { "JackThreadInitCallback", sizeof (JackThreadInitCallback) },
-  { "jack_intclient_t;", sizeof (jack_intclient_t) },
-  { "jack_nframes_t;", sizeof (jack_nframes_t) },
+  { "jack_intclient_t", sizeof (jack_intclient_t) },
+  { "jack_nframes_t", sizeof (jack_nframes_t) },
   { "jack_options_t", sizeof (jack_options_t) },
   { "JackPortConnectCallback", sizeof (JackPortConnectCallback) },
   { "enum JackPortFlags", sizeof (enum JackPortFlags) },
-  { "jack_port_id_t;", sizeof (jack_port_id_t) },
+  { "jack_port_id_t", sizeof (jack_port_id_t) },
   { "JackPortRegistrationCallback", sizeof (JackPortRegistrationCallback) },
   { "jack_port_t *", sizeof (jack_port_t *) },
   { "JackProcessCallback", sizeof (JackProcessCallback) },
   { "JackSampleRateCallback", sizeof (JackSampleRateCallback) },
   { "jack_default_audio_sample_t", sizeof (jack_default_audio_sample_t) },
-  { "jack_shmsize_t;", sizeof (jack_shmsize_t) },
+  { "jack_shmsize_t", sizeof (jack_shmsize_t) },
   { "jack_status_t", sizeof (jack_status_t) },
-  { "jack_time_t;", sizeof (jack_time_t) },
+  { "jack_time_t", sizeof (jack_time_t) },
   { "JackXRunCallback", sizeof (JackXRunCallback) },
 };
 const unsigned int types_size = sizeof (types) / sizeof (types[0]);

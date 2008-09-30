@@ -1,4 +1,4 @@
-package jack.error is
+generic package jack.error is
 
   type error_callback_t is access procedure
     (message : string);

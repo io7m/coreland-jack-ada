@@ -1,6 +1,6 @@
 with interfaces.c;
 
-package jack.sample is
+generic package jack.sample is
   package c renames interfaces.c;
 
   -- Sample type (must match jack_default_audio_sample_t in jack/types.h)

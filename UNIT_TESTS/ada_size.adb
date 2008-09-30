@@ -15,10 +15,9 @@ procedure ada_size is
   type generic_t is new integer;
 
   -- package instantiations
-  package gen_jack_transport is new jack.transport
-    (user_data_t => generic_t);
-  package gen_jack_types is new jack.types
-    (user_data_t => generic_t);
+  package gen_jack is new jack (user_data_t => generic_t);
+  package gen_jack_transport is new gen_jack.transport;
+  package gen_jack_types is new gen_jack.types;
 
   -- type names
   jack_transport_position_bits_t : aliased string := "jack.transport.position_bits_t";
