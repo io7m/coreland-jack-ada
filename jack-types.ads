@@ -108,40 +108,48 @@ generic package jack.types is
   type process_callback_t is access function
     (num_frames : num_frames_t;
      userdata   : user_data_access_t) return integer_t;
+  pragma convention (c, process_callback_t);
 
   -- initialisation callback type
   type init_callback_t is access function
     (userdata : user_data_access_t) return integer_t;
+  pragma convention (c, init_callback_t);
 
   -- graph reordering callback type
   type graph_order_callback_t is access function
     (userdata : user_data_access_t) return integer_t;
+  pragma convention (c, graph_order_callback_t);
 
   -- xrun callback type
   type xrun_callback_t is access function
     (userdata : user_data_access_t) return integer_t;
+  pragma convention (c, xrun_callback_t);
 
   -- buffer size callback type
   type buffer_size_callback_t is access function
     (num_frames : num_frames_t;         
      userdata   : user_data_access_t) return integer_t;
+  pragma convention (c, buffer_size_callback_t);
 
   -- sample rate callback type
   type sample_rate_callback_t is access function
     (num_frames : num_frames_t;         
      userdata   : user_data_access_t) return integer_t;
+  pragma convention (c, sample_rate_callback_t);
 
   -- port registration callback type
   type port_register_callback_t is access procedure
     (port     : port_id_t;
      register : boolean_t;
      userdata : user_data_access_t);
+  pragma convention (c, port_register_callback_t);
 
   -- client registration callback type
   type client_register_callback_t is access procedure
     (name     : string;
      register : boolean_t;
      userdata : user_data_access_t);
+  pragma convention (c, client_register_callback_t);
 
   -- port connection callback type
   type port_connect_callback_t is access procedure
@@ -149,11 +157,13 @@ generic package jack.types is
      port_b   : port_id_t;
      connect  : boolean_t;
      userdata : user_data_access_t);
+  pragma convention (c, port_connect_callback_t);
 
   -- freewheeling callback type
   type freewheel_callback_t is access procedure
     (starting : boolean_t;
      userdata : user_data_access_t);
+  pragma convention (c, freewheel_callback_t);
 
   -- opaque type.
   type int_client_t is new uint64_t;

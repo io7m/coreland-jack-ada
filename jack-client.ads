@@ -7,6 +7,7 @@ generic package jack.client is
 
   type shutdown_callback_t is access procedure
     (user_data : jack_types.user_data_access_t);
+  pragma convention (c, shutdown_callback_t);
 
   null_client : constant jack_types.client_t := jack_types.client_t (jack_types.null_ptr);
 
