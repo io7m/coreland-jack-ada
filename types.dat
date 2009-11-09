@@ -19,7 +19,7 @@ float                          : Float_t                                  : real
 int                            : Integer_t                                : integer
 jack_client_t *                : System.Address                           : address
 jack_nframes_t                 : Number_Of_Frames_t                       : integer
-jack_options_t                 : Unsigned_Integer_t                       : integer
+jack_options_t                 : Options_t                                : integer
 jack_port_id_t                 : Port_ID_t                                : integer
 jack_port_t *                  : System.Address                           : address
 jack_status_t *                : System.Address                           : address
