@@ -15,5 +15,9 @@ jack-mkapi.lua
 	./jack-mkconst.sh jack_const.dat >> jack-thin.ads.tmp
 	./block-comment "API" >> jack-thin.ads.tmp
 	./jack-mkapi.lua jack_types.dat jack_names.dat types.dat >> jack-thin.ads.tmp
+	./block-comment "Statistics" >> jack-thin.ads.tmp
+	./jack-mkapi.lua jack_statistics_types.dat jack_statistics_names.dat types.dat >> jack-thin.ads.tmp
+	./block-comment "Intclient" >> jack-thin.ads.tmp
+	./jack-mkapi.lua jack_intclient_types.dat jack_intclient_names.dat types.dat >> jack-thin.ads.tmp
 	cat jack-thin.ads.N >> jack-thin.ads.tmp
 	mv jack-thin.ads.tmp jack-thin.ads

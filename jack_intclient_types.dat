@@ -1,0 +1,4 @@
+char *           : Get_Internal_Client_Name : jack_client_t * : jack_intclient_t
+jack_intclient_t : Internal_Client_Handle   : jack_client_t * : const char * : jack_status_t *
+jack_intclient_t : Internal_Client_Load     : jack_client_t * : const char * : jack_options_t : jack_status_t *
+jack_status_t    : Internal_Client_Unload   : jack_client_t * : jack_intclient_t

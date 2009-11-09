@@ -1,0 +1,3 @@
+Get_Max_Delayed_Usecs   : Client
+Get_Xrun_Delayed_Usecs  : Client
+Reset_Max_Delayed_Usecs : Client

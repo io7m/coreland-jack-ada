@@ -1,0 +1,3 @@
+float : Get_Max_Delayed_Usecs   : jack_client_t *
+float : Get_Xrun_Delayed_Usecs  : jack_client_t *
+void  : Reset_Max_Delayed_Usecs : jack_client_t *
