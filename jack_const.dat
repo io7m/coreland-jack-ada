@@ -2,7 +2,10 @@ JackFailure
 JackInitFailure
 JackInvalidOption
 JackLoadFailure
+JackLoadInit
+JackLoadName
 JackNameNotUnique
+JackNoStartServer
 JackNoSuchClient
 JackPortCanMonitor
 JackPortIsInput
@@ -11,6 +14,8 @@ JackPortIsPhysical
 JackPortIsTerminal
 JackServerError
 JackServerFailed
+JackServerName
 JackServerStarted
 JackShmFailure
+JackUseExactName
 JackVersionError

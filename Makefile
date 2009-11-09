@@ -6,9 +6,9 @@ all:\
 local ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o ctxt/incdir.o ctxt/repos.o \
 ctxt/slibdir.o ctxt/version.o deinstaller deinstaller.o install-core.o \
 install-error.o install-posix.o install-win32.o install.a installer installer.o \
-instchk instchk.o insthier.o jack-ada-conf jack-ada-conf.o jack-ada.a jack-enum \
-jack-enum.o jack-thin.ali jack-thin.o jack-types.ali jack-types.o jack.ali \
-jack.o
+instchk instchk.o insthier.o jack-ada-conf jack-ada-conf.o jack-ada.a \
+jack-client.ali jack-client.o jack-enum jack-enum.o jack-thin.ali jack-thin.o \
+jack-types.ali jack-types.o jack.ali jack.o
 
 # Mkf-deinstall
 deinstall: deinstaller conf-sosuffix
@@ -115,11 +115,11 @@ mk-adatype
 	./mk-adatype > conf-adatype.tmp && mv conf-adatype.tmp conf-adatype
 
 conf-cctype:\
-conf-cc mk-cctype
+conf-cc conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-ld mk-ldtype
+conf-ld conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-sosuffix:\
@@ -255,6 +255,13 @@ jack-ada.a:\
 cc-slib jack-ada.sld jack.o jack-thin.o
 	./cc-slib jack-ada jack.o jack-thin.o
 
+jack-client.ads:\
+jack.ali jack-thin.ali
+
+jack-client.o jack-client.ali:\
+ada-compile jack-client.adb jack.ali jack-client.ads
+	./ada-compile jack-client.adb
+
 jack-enum:\
 cc-link jack-enum.ld jack-enum.o
 	./cc-link jack-enum jack-enum.o
@@ -330,8 +337,9 @@ obj_clean:
 	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller deinstaller.o \
 	install-core.o install-error.o install-posix.o install-win32.o install.a \
 	installer installer.o instchk instchk.o insthier.o jack-ada-conf \
-	jack-ada-conf.o jack-ada.a jack-enum jack-enum.o jack-thin.ads jack-thin.ali \
-	jack-thin.o jack-types.ali jack-types.o jack.ali jack.o
+	jack-ada-conf.o jack-ada.a jack-client.ali jack-client.o jack-enum jack-enum.o \
+	jack-thin.ads jack-thin.ali jack-thin.o jack-types.ali jack-types.o jack.ali \
+	jack.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 

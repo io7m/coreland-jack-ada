@@ -4,4 +4,6 @@ generic
 package Jack.Types is
   pragma Pure (Jack.Types);
 
+  subtype Sample_Type_t is Sample_Type;
+
 end Jack.Types;
