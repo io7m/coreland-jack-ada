@@ -1,0 +1,16 @@
+JackFailure
+JackInitFailure
+JackInvalidOption
+JackLoadFailure
+JackNameNotUnique
+JackNoSuchClient
+JackPortCanMonitor
+JackPortIsInput
+JackPortIsOutput
+JackPortIsPhysical
+JackPortIsTerminal
+JackServerError
+JackServerFailed
+JackServerStarted
+JackShmFailure
+JackVersionError
