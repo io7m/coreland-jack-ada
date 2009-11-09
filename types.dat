@@ -18,12 +18,12 @@ const jack_port_t *            : System.Address                           : addr
 float                          : Float_t                                  : real
 int                            : Integer_t                                : integer
 jack_client_t *                : System.Address                           : address
-jack_nframes_t                 : Unsigned_32_t                            : integer
+jack_nframes_t                 : Number_Of_Frames_t                       : integer
 jack_options_t                 : Unsigned_Integer_t                       : integer
-jack_port_id_t                 : Unsigned_32_t                            : integer
+jack_port_id_t                 : Port_ID_t                                : integer
 jack_port_t *                  : System.Address                           : address
 jack_status_t *                : System.Address                           : address
-jack_time_t                    : Unsigned_64_t                            : integer
+jack_time_t                    : Time_t                                   : integer
 pthread_t                      : System.Address                           : address
 unsigned long                  : Unsigned_Long_t                          : integer
 void *                         : System.Address                           : address

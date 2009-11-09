@@ -15,5 +15,72 @@ package Jack.Thin is
   subtype Integer_t          is C.int;
   subtype Float_t            is C.C_float;
   subtype Unsigned_Long_t    is C.unsigned_long;
-  subtype Unsigned_32_t      is Interfaces.Unsigned_32;
-  subtype Unsigned_64_t      is Interfaces.Unsigned_64;
+
+  subtype Port_ID_t          is Interfaces.Unsigned_32;
+  subtype Time_t             is Interfaces.Unsigned_64;
+  subtype Number_Of_Frames_t is Interfaces.Unsigned_32;
+
+  type Thread_Callback_t is not null access procedure (Data : System.Address);
+  pragma Convention (C, Thread_Callback_t);
+
+  type Thread_Init_Callback_t is not null access procedure (Data : System.Address);
+  pragma Convention (C, Thread_Init_Callback_t);
+
+  type Callback_t is not null access procedure (Data : System.Address);
+  pragma Convention (C, Callback_t);
+
+  type Graph_Order_Callback_t is not null access procedure (Data : System.Address);
+  pragma Convention (C, Graph_Order_Callback_t);
+
+  type String_Callback_t is not null access procedure
+    (Data : C_String.String_Not_Null_Ptr_t);
+  pragma Convention (C, String_Callback_t);
+
+  type XRun_Callback_t is not null access procedure (Data : System.Address);
+  pragma Convention (C, XRun_Callback_t);
+
+  type Process_Callback_t is not null access procedure
+    (Number_Of_Frames : Number_Of_Frames_t;
+     Data             : System.Address);
+  pragma Convention (C, Process_Callback_t);
+
+  subtype Starting_t is Integer_t range 0 .. 1;
+
+  type Freewheel_Callback_t is not null access procedure
+    (Starting : Starting_t;
+     Data     : System.Address);
+  pragma Convention (C, Freewheel_Callback_t);
+
+  subtype Registering_t is Integer_t range 0 .. 1;
+
+  type Client_Registration_Callback_t is not null access procedure
+    (Name     : C_String.String_Not_Null_Ptr_t;
+     Register : Registering_t;
+     Data     : System.Address);
+  pragma Convention (C, Client_Registration_Callback_t);
+
+  type Port_Registration_Callback_t is not null access procedure
+    (Port     : Port_ID_t;
+     Register : Registering_t;
+     Data     : System.Address);
+  pragma Convention (C, Port_Registration_Callback_t);
+
+  subtype Connecting_t is Integer_t range 0 .. 1;
+
+  type Port_Connect_Callback_t is not null access procedure
+    (Port_A   : Port_ID_t;
+     Port_B   : Port_ID_t;
+     Connect  : Connecting_t;
+     Data     : System.Address);
+  pragma Convention (C, Port_Connect_Callback_t);
+
+  type Sample_Rate_Callback_t is not null access procedure
+    (Number_Of_Frames : Number_Of_Frames_t;
+     Data             : System.Address);
+  pragma Convention (C, Sample_Rate_Callback_t);
+
+  type Buffer_Size_Callback_t is not null access procedure
+    (Number_Of_Frames : Number_Of_Frames_t;
+     Data             : System.Address);
+  pragma Convention (C, Buffer_Size_Callback_t);
+
