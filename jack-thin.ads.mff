@@ -1,0 +1,13 @@
+jack-thin.ads:  \
+jack-thin.ads.0 \
+jack-thin.ads.N \
+jack_types.dat  \
+jack_names.dat  \
+types.dat       \
+block-comment   \
+jack-mkapi.lua
+	rm -f jack-thin.ads.tmp
+	cat jack-thin.ads.0 >> jack-thin.ads.tmp
+	./jack-mkapi.lua jack_types.dat jack_names.dat types.dat >> jack-thin.ads.tmp
+	cat jack-thin.ads.N >> jack-thin.ads.tmp
+	mv jack-thin.ads.tmp jack-thin.ads

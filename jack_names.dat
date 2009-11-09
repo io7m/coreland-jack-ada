@@ -29,7 +29,7 @@ Set_Buffer_Size                   : Client       : Number_Of_Frames
 Get_Sample_Rate                   : Client
 Get_Buffer_Size                   : Client
 Engine_Takeover_Timebase          : Client
-Cpu_Load                          : Client
+CPU_Load                          : Client
 Port_Register                     : Client       : Port_Name        : Port_Type : Flags : Buffer_Size
 Port_Unregister                   : Client       : Port
 Port_Get_Buffer                   : Port         : Number_Of_Frames

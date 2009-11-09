@@ -3,15 +3,11 @@
 default: all
 
 all:\
-UNIT_TESTS/ada_size UNIT_TESTS/ada_size.ali UNIT_TESTS/ada_size.o \
-UNIT_TESTS/c_size UNIT_TESTS/c_size.o ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o \
-ctxt/incdir.o ctxt/repos.o ctxt/slibdir.o ctxt/version.o deinstaller \
-deinstaller.o install-core.o install-error.o install-posix.o install-win32.o \
-install.a installer installer.o instchk instchk.o insthier.o jack-ada-conf \
-jack-ada-conf.o jack-ada.a jack-client.ali jack-client.o jack-error.ali \
-jack-error.o jack-port.ali jack-port.o jack-sample.ali jack-sample.o \
-jack-server.ali jack-server.o jack-time.ali jack-time.o jack-transport.ali \
-jack-transport.o jack-types.ali jack-types.o jack.ali jack.o
+ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o ctxt/incdir.o ctxt/repos.o \
+ctxt/slibdir.o ctxt/version.o deinstaller deinstaller.o install-core.o \
+install-error.o install-posix.o install-win32.o install.a installer installer.o \
+instchk instchk.o insthier.o jack-ada-conf jack-ada-conf.o jack-ada.a \
+jack-thin.ali jack-thin.o jack.ali jack.o
 
 # Mkf-deinstall
 deinstall: deinstaller conf-sosuffix
@@ -37,61 +33,45 @@ tests:
 tests_clean:
 	(cd UNIT_TESTS && make clean)
 
-# -- SYSDEPS start
-flags-jack:
-	@echo SYSDEPS jack-flags run create flags-jack 
-	@(cd SYSDEPS/modules/jack-flags && ./run)
-libs-jack:
-	@echo SYSDEPS jack-libs run create libs-jack 
-	@(cd SYSDEPS/modules/jack-libs && ./run)
+#----------------------------------------------------------------------
+# SYSDEPS start
+
+flags-c_string:
+	@echo SYSDEPS c_string-flags run create flags-c_string 
+	@(cd SYSDEPS && ./sd-run modules/c_string-flags)
+libs-c_string-S:
+	@echo SYSDEPS c_string-libs-S run create libs-c_string-S 
+	@(cd SYSDEPS && ./sd-run modules/c_string-libs-S)
 
 
-jack-flags_clean:
-	@echo SYSDEPS jack-flags clean flags-jack 
-	@(cd SYSDEPS/modules/jack-flags && ./clean)
-jack-libs_clean:
-	@echo SYSDEPS jack-libs clean libs-jack 
-	@(cd SYSDEPS/modules/jack-libs && ./clean)
+c_string-flags_clean:
+	@echo SYSDEPS c_string-flags clean flags-c_string 
+	@(cd SYSDEPS && ./sd-clean modules/c_string-flags)
+c_string-libs-S_clean:
+	@echo SYSDEPS c_string-libs-S clean libs-c_string-S 
+	@(cd SYSDEPS && ./sd-clean modules/c_string-libs-S)
 
 
 sysdeps_clean:\
-jack-flags_clean \
-jack-libs_clean \
+c_string-flags_clean \
+c_string-libs-S_clean \
 
 
-# -- SYSDEPS end
 
-
-UNIT_TESTS/ada_size:\
-ada-bind ada-link UNIT_TESTS/ada_size.ald UNIT_TESTS/ada_size.ali \
-jack-client.ali jack-error.ali jack-port.ali jack-sample.ali jack-server.ali \
-jack-time.ali jack-transport.ali jack-types.ali jack.ali jack-ada.a
-	./ada-bind UNIT_TESTS/ada_size.ali
-	./ada-link UNIT_TESTS/ada_size UNIT_TESTS/ada_size.ali jack-ada.a
-
-UNIT_TESTS/ada_size.ali:\
-ada-compile UNIT_TESTS/ada_size.adb jack.ads jack-transport.ads jack-types.ads
-	./ada-compile UNIT_TESTS/ada_size.adb
-
-UNIT_TESTS/ada_size.o:\
-UNIT_TESTS/ada_size.ali
-
-UNIT_TESTS/c_size:\
-cc-link UNIT_TESTS/c_size.ld UNIT_TESTS/c_size.o
-	./cc-link UNIT_TESTS/c_size UNIT_TESTS/c_size.o
-
-UNIT_TESTS/c_size.o:\
-cc-compile UNIT_TESTS/c_size.c
-	./cc-compile UNIT_TESTS/c_size.c
+# SYSDEPS end
+#----------------------------------------------------------------------
 
 ada-bind:\
-conf-adabind conf-systype conf-adatype conf-adabflags conf-adafflist flags-cwd
+conf-adabind conf-systype conf-adatype conf-adabflags conf-adafflist flags-cwd \
+	flags-c_string
 
 ada-compile:\
-conf-adacomp conf-adatype conf-systype conf-adacflags conf-adafflist flags-cwd
+conf-adacomp conf-adatype conf-systype conf-adacflags conf-adafflist flags-cwd \
+	flags-c_string
 
 ada-link:\
-conf-adalink conf-adatype conf-systype conf-adaldflags conf-aldfflist libs-jack
+conf-adalink conf-adatype conf-systype conf-adaldflags conf-aldfflist \
+	libs-c_string-S
 
 ada-srcmap:\
 conf-adacomp conf-adatype conf-systype
@@ -100,10 +80,10 @@ ada-srcmap-all:\
 ada-srcmap conf-adacomp conf-adatype conf-systype
 
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-ccfflist flags-jack
+conf-cc conf-cctype conf-systype conf-ccfflist
 
 cc-link:\
-conf-ld conf-ldtype conf-systype conf-ldfflist libs-jack
+conf-ld conf-ldtype conf-systype conf-ldfflist
 
 cc-slib:\
 conf-systype
@@ -250,82 +230,31 @@ cc-compile jack-ada-conf.c ctxt.h
 	./cc-compile jack-ada-conf.c
 
 jack-ada.a:\
-cc-slib jack-ada.sld jack-client.o jack-error.o jack-port.o jack-sample.o \
-jack-server.o jack-time.o jack-transport.o jack-types.o jack.o
-	./cc-slib jack-ada jack-client.o jack-error.o jack-port.o jack-sample.o \
-	jack-server.o jack-time.o jack-transport.o jack-types.o jack.o
+cc-slib jack-ada.sld jack.o jack-thin.o
+	./cc-slib jack-ada jack.o jack-thin.o
 
-jack-client.ads:\
-jack-types.ads jack-transport.ads
+# jack-thin.ads.mff
+jack-thin.ads:  \
+jack-thin.ads.0 \
+jack-thin.ads.N \
+jack_types.dat  \
+jack_names.dat  \
+types.dat       \
+block-comment   \
+jack-mkapi.lua
+	rm -f jack-thin.ads.tmp
+	cat jack-thin.ads.0 >> jack-thin.ads.tmp
+	./jack-mkapi.lua jack_types.dat jack_names.dat types.dat >> jack-thin.ads.tmp
+	cat jack-thin.ads.N >> jack-thin.ads.tmp
+	mv jack-thin.ads.tmp jack-thin.ads
 
-jack-client.ali:\
-ada-compile jack-client.adb jack-client.ads
-	./ada-compile jack-client.adb
+jack-thin.o jack-thin.ali:\
+ada-compile jack-thin.ads
+	./ada-compile jack-thin.ads
 
-jack-client.o:\
-jack-client.ali
-
-jack-error.ali:\
-ada-compile jack-error.adb jack-error.ads
-	./ada-compile jack-error.adb
-
-jack-error.o:\
-jack-error.ali
-
-jack-port.ads:\
-jack-types.ads jack-transport.ads
-
-jack-port.ali:\
-ada-compile jack-port.adb jack-port.ads
-	./ada-compile jack-port.adb
-
-jack-port.o:\
-jack-port.ali
-
-jack-sample.ali:\
-ada-compile jack-sample.ads jack-sample.ads
-	./ada-compile jack-sample.ads
-
-jack-sample.o:\
-jack-sample.ali
-
-jack-server.ads:\
-jack-types.ads jack-transport.ads
-
-jack-server.ali:\
-ada-compile jack-server.adb jack-server.ads
-	./ada-compile jack-server.adb
-
-jack-server.o:\
-jack-server.ali
-
-jack-time.ali:\
-ada-compile jack-time.ads jack-time.ads jack-types.ads jack-transport.ads
-	./ada-compile jack-time.ads
-
-jack-time.o:\
-jack-time.ali
-
-jack-transport.ali:\
-ada-compile jack-transport.ads jack-transport.ads jack-types.ads
-	./ada-compile jack-transport.ads
-
-jack-transport.o:\
-jack-transport.ali
-
-jack-types.ali:\
-ada-compile jack-types.ads jack-types.ads jack-sample.ads
-	./ada-compile jack-types.ads
-
-jack-types.o:\
-jack-types.ali
-
-jack.ali:\
+jack.o jack.ali:\
 ada-compile jack.ads jack.ads
 	./ada-compile jack.ads
-
-jack.o:\
-jack.ali
 
 mk-adatype:\
 conf-adacomp conf-systype
@@ -352,16 +281,13 @@ conf-cc conf-ld
 clean-all: sysdeps_clean tests_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
-	rm -f UNIT_TESTS/ada_size UNIT_TESTS/ada_size.ali UNIT_TESTS/ada_size.o \
-	UNIT_TESTS/c_size UNIT_TESTS/c_size.o ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a \
-	ctxt/dlibdir.c ctxt/dlibdir.o ctxt/incdir.c ctxt/incdir.o ctxt/repos.c \
-	ctxt/repos.o ctxt/slibdir.c ctxt/slibdir.o ctxt/version.c ctxt/version.o \
-	deinstaller deinstaller.o install-core.o install-error.o install-posix.o \
-	install-win32.o install.a installer installer.o instchk instchk.o insthier.o \
-	jack-ada-conf jack-ada-conf.o jack-ada.a jack-client.ali jack-client.o \
-	jack-error.ali jack-error.o jack-port.ali jack-port.o jack-sample.ali \
-	jack-sample.o jack-server.ali jack-server.o jack-time.ali jack-time.o \
-	jack-transport.ali jack-transport.o jack-types.ali jack-types.o jack.ali jack.o
+	rm -f ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
+	ctxt/incdir.c ctxt/incdir.o ctxt/repos.c ctxt/repos.o ctxt/slibdir.c \
+	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller deinstaller.o \
+	install-core.o install-error.o install-posix.o install-win32.o install.a \
+	installer installer.o instchk instchk.o insthier.o jack-ada-conf \
+	jack-ada-conf.o jack-ada.a jack-thin.ads jack-thin.ali jack-thin.o jack.ali \
+	jack.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 

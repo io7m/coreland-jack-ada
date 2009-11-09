@@ -1,0 +1,31 @@
+JackBufferSizeCallback         : Buffer_Size_Callback_t                   : private
+JackClientRegistrationCallback : Client_Registration_Callback_t           : private
+JackFreewheelCallback          : Freewheel_Callback_t                     : private
+JackGraphOrderCallback         : Graph_Order_Callback_t                   : private
+JackPortConnectCallback        : Port_Connect_Callback_t                  : private
+JackPortRegistrationCallback   : Port_Registration_Callback_t             : private
+JackProcessCallback            : Process_Callback_t                       : private
+JackSampleRateCallback         : Sample_Rate_Callback_t                   : private
+JackThreadCallback             : Thread_Callback_t                        : private
+JackThreadInitCallback         : Thread_Init_Callback_t                   : private
+JackXRunCallback               : XRun_Callback_t                          : private
+char *                         : C_String.Char_Array_Ptr_t                : private
+char **                        : C_String.Arrays.Pointer_Array_t          : private
+const char *                   : C_String.String_Not_Null_Ptr_t           : private
+const char **                  : C_String.Arrays.Pointer_Array_t          : private
+const jack_client_t *          : System.Address                           : address
+const jack_port_t *            : System.Address                           : address
+float                          : Float_t                                  : real
+int                            : Integer_t                                : integer
+jack_client_t *                : System.Address                           : address
+jack_nframes_t                 : Unsigned_32_t                            : integer
+jack_options_t                 : Unsigned_Integer_t                       : integer
+jack_port_id_t                 : Unsigned_32_t                            : integer
+jack_port_t *                  : System.Address                           : address
+jack_status_t *                : System.Address                           : address
+jack_time_t                    : Unsigned_64_t                            : integer
+pthread_t                      : System.Address                           : address
+unsigned long                  : Unsigned_Long_t                          : integer
+void *                         : System.Address                           : address
+void(*)(const char *)          : String_Callback_t                        : private
+void(*)(void *)                : Callback_t                               : private

@@ -1,0 +1,19 @@
+--
+-- Auto generated, do not edit.
+--
+
+with C_String.Arrays;
+with C_String;
+with Interfaces.C;
+with Interfaces;
+with System;
+
+package Jack.Thin is
+  package C renames Interfaces.C;
+
+  subtype Unsigned_Integer_t is C.unsigned;
+  subtype Integer_t          is C.int;
+  subtype Float_t            is C.C_float;
+  subtype Unsigned_Long_t    is C.unsigned_long;
+  subtype Unsigned_32_t      is Interfaces.Unsigned_32;
+  subtype Unsigned_64_t      is Interfaces.Unsigned_64;
