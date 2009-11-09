@@ -1,12 +1,13 @@
 #include <jack/jack.h>
 #include <stdio.h>
+#include <string.h>
 
 struct enum_value_t {
   const char *name;
   unsigned long value;
 };
 
-static const struct enum_values[] = {
+static const struct enum_value_t enum_values[] = {
   { "JackPortIsInput",    (unsigned long) JackPortIsInput },
   { "JackPortIsOutput",   (unsigned long) JackPortIsOutput },
   { "JackPortIsPhysical", (unsigned long) JackPortIsPhysical },
@@ -26,7 +27,22 @@ static const struct enum_values[] = {
 };
 
 int
-main (void)
+main (int argc, char *argv[])
 {
-  return 0;
+  unsigned int index;
+
+  if (argc < 2) {
+    fprintf (stderr, "usage: enum_value\n");
+    return 1;
+  }
+
+  for (index = 0; index < sizeof (enum_values) / sizeof (enum_values [0]); ++index) {
+    if (strcmp (enum_values [index].name, argv [1]) == 0) {
+      printf ("%lu\n", enum_values [index].value);
+      return 0;
+    }
+  }
+
+  fprintf (stderr, "fatal: unknown enum value\n");
+  return 1;
 }

@@ -92,7 +92,7 @@ conf-adacomp conf-adatype conf-systype conf-adacflags conf-adafflist flags-cwd \
 
 ada-link:\
 conf-adalink conf-adatype conf-systype conf-adaldflags conf-aldfflist \
-	libs-c_string-S
+	libs-c_string-S libs-jack
 
 ada-srcmap:\
 conf-adacomp conf-adatype conf-systype
@@ -101,10 +101,10 @@ ada-srcmap-all:\
 ada-srcmap conf-adacomp conf-adatype conf-systype
 
 cc-compile:\
-conf-cc conf-cctype conf-systype conf-ccfflist
+conf-cc conf-cctype conf-systype conf-ccfflist flags-jack
 
 cc-link:\
-conf-ld conf-ldtype conf-systype conf-ldfflist
+conf-ld conf-ldtype conf-systype conf-ldfflist libs-jack
 
 cc-slib:\
 conf-systype
@@ -268,11 +268,17 @@ jack-thin.ads.0 \
 jack-thin.ads.N \
 jack_types.dat  \
 jack_names.dat  \
+jack_const.dat  \
+jack-enum       \
+jack-mkconst.sh \
 types.dat       \
 block-comment   \
 jack-mkapi.lua
 	rm -f jack-thin.ads.tmp
 	cat jack-thin.ads.0 >> jack-thin.ads.tmp
+	./block-comment "Constants" >> jack-thin.ads.tmp
+	./jack-mkconst.sh jack_const.dat >> jack-thin.ads.tmp
+	./block-comment "API" >> jack-thin.ads.tmp
 	./jack-mkapi.lua jack_types.dat jack_names.dat types.dat >> jack-thin.ads.tmp
 	cat jack-thin.ads.N >> jack-thin.ads.tmp
 	mv jack-thin.ads.tmp jack-thin.ads

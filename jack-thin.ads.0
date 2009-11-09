@@ -19,6 +19,7 @@ package Jack.Thin is
   subtype Port_ID_t          is Interfaces.Unsigned_32;
   subtype Time_t             is Interfaces.Unsigned_64;
   subtype Number_Of_Frames_t is Interfaces.Unsigned_32;
+  subtype Options_t          is C.unsigned;
 
   type Thread_Callback_t is not null access procedure (Data : System.Address);
   pragma Convention (C, Thread_Callback_t);
