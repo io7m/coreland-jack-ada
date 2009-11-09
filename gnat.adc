@@ -2,5 +2,8 @@
 -- ./jack-thin.apk
 pragma source_file_name(Jack.Thin, spec_file_name => "jack-thin.ads");
 
+-- ./jack-types.apk
+pragma source_file_name(Jack.Types, spec_file_name => "jack-types.ads");
+
 -- ./jack.apk
 pragma source_file_name(Jack, spec_file_name => "jack.ads");
