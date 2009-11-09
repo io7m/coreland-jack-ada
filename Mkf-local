@@ -1,0 +1,5 @@
+local: flags-jack libs-jack flags-c_string libs-c_string-S
+	./check-deps
+
+local_pre:
+local_clean:

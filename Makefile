@@ -3,11 +3,11 @@
 default: all
 
 all:\
-ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o ctxt/incdir.o ctxt/repos.o \
+local ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o ctxt/incdir.o ctxt/repos.o \
 ctxt/slibdir.o ctxt/version.o deinstaller deinstaller.o install-core.o \
 install-error.o install-posix.o install-win32.o install.a installer installer.o \
-instchk instchk.o insthier.o jack-ada-conf jack-ada-conf.o jack-ada.a \
-jack-thin.ali jack-thin.o jack.ali jack.o
+instchk instchk.o insthier.o jack-ada-conf jack-ada-conf.o jack-ada.a jack-enum \
+jack-enum.o jack-thin.ali jack-thin.o jack.ali jack.o
 
 # Mkf-deinstall
 deinstall: deinstaller conf-sosuffix
@@ -27,6 +27,13 @@ install-dryrun: installer conf-sosuffix
 install-check: instchk conf-sosuffix
 	./instchk
 
+# Mkf-local
+local: flags-jack libs-jack flags-c_string libs-c_string-S
+	./check-deps
+
+local_pre:
+local_clean:
+
 # Mkf-test
 tests:
 	(cd UNIT_TESTS && make)
@@ -42,6 +49,12 @@ flags-c_string:
 libs-c_string-S:
 	@echo SYSDEPS c_string-libs-S run create libs-c_string-S 
 	@(cd SYSDEPS && ./sd-run modules/c_string-libs-S)
+flags-jack:
+	@echo SYSDEPS jack-flags run create flags-jack 
+	@(cd SYSDEPS && ./sd-run modules/jack-flags)
+libs-jack:
+	@echo SYSDEPS jack-libs run create libs-jack 
+	@(cd SYSDEPS && ./sd-run modules/jack-libs)
 
 
 c_string-flags_clean:
@@ -50,11 +63,19 @@ c_string-flags_clean:
 c_string-libs-S_clean:
 	@echo SYSDEPS c_string-libs-S clean libs-c_string-S 
 	@(cd SYSDEPS && ./sd-clean modules/c_string-libs-S)
+jack-flags_clean:
+	@echo SYSDEPS jack-flags clean flags-jack 
+	@(cd SYSDEPS && ./sd-clean modules/jack-flags)
+jack-libs_clean:
+	@echo SYSDEPS jack-libs clean libs-jack 
+	@(cd SYSDEPS && ./sd-clean modules/jack-libs)
 
 
 sysdeps_clean:\
 c_string-flags_clean \
 c_string-libs-S_clean \
+jack-flags_clean \
+jack-libs_clean \
 
 
 
@@ -93,11 +114,11 @@ mk-adatype
 	./mk-adatype > conf-adatype.tmp && mv conf-adatype.tmp conf-adatype
 
 conf-cctype:\
-conf-cc mk-cctype
+conf-cc conf-cc mk-cctype
 	./mk-cctype > conf-cctype.tmp && mv conf-cctype.tmp conf-cctype
 
 conf-ldtype:\
-conf-ld mk-ldtype
+conf-ld conf-ld mk-ldtype
 	./mk-ldtype > conf-ldtype.tmp && mv conf-ldtype.tmp conf-ldtype
 
 conf-sosuffix:\
@@ -233,6 +254,14 @@ jack-ada.a:\
 cc-slib jack-ada.sld jack.o jack-thin.o
 	./cc-slib jack-ada jack.o jack-thin.o
 
+jack-enum:\
+cc-link jack-enum.ld jack-enum.o
+	./cc-link jack-enum jack-enum.o
+
+jack-enum.o:\
+cc-compile jack-enum.c
+	./cc-compile jack-enum.c
+
 # jack-thin.ads.mff
 jack-thin.ads:  \
 jack-thin.ads.0 \
@@ -278,7 +307,7 @@ conf-systype
 mk-systype:\
 conf-cc conf-ld
 
-clean-all: sysdeps_clean tests_clean obj_clean ext_clean
+clean-all: sysdeps_clean tests_clean local_clean obj_clean ext_clean
 clean: obj_clean
 obj_clean:
 	rm -f ctxt/bindir.c ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.c ctxt/dlibdir.o \
@@ -286,8 +315,8 @@ obj_clean:
 	ctxt/slibdir.o ctxt/version.c ctxt/version.o deinstaller deinstaller.o \
 	install-core.o install-error.o install-posix.o install-win32.o install.a \
 	installer installer.o instchk instchk.o insthier.o jack-ada-conf \
-	jack-ada-conf.o jack-ada.a jack-thin.ads jack-thin.ali jack-thin.o jack.ali \
-	jack.o
+	jack-ada-conf.o jack-ada.a jack-enum jack-enum.o jack-thin.ads jack-thin.ali \
+	jack-thin.o jack.ali jack.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 
