@@ -1,0 +1,75 @@
+jack_client_t *  : Client_Open                       : const char *          : jack_options_t : jack_status_t *
+jack_client_t *  : Client_New                        : const char *
+int              : Client_Close                      : jack_client_t *
+int              : Client_Name_Size
+char *           : Get_Client_Name                   : jack_client_t *
+int              : Internal_Client_New               : const char *          : const char * : const char *
+void             : Internal_Client_Close             : const char *
+int              : Activate                          : jack_client_t *
+int              : Deactivate                        : jack_client_t *
+pthread_t        : Client_Thread_ID                  : jack_client_t *
+int              : Is_Realtime                       : jack_client_t *
+jack_nframes_t   : Thread_Wait                       : jack_client_t *       : int
+jack_nframes_t   : Cycle_Wait                        : jack_client_t *
+void             : Cycle_Signal                      : jack_client_t *       : int
+int              : Set_Process_Thread                : jack_client_t *       : JackThreadCallback             : void *
+int              : Set_Thread_Init_Callback          : jack_client_t *       : JackThreadInitCallback         : void *
+void             : On_Shutdown                       : jack_client_t *       : void(*)(void *)                : void *
+int              : Set_Process_Callback              : jack_client_t *       : JackProcessCallback            : void *
+int              : Set_Freewheel_Callback            : jack_client_t *       : JackFreewheelCallback          : void *
+int              : Set_Buffer_Size_Callback          : jack_client_t *       : JackBufferSizeCallback         : void *
+int              : Set_Sample_Rate_Callback          : jack_client_t *       : JackSampleRateCallback         : void *
+int              : Set_Client_Registration_Callback  : jack_client_t *       : JackClientRegistrationCallback : void *
+int              : Set_Port_Registration_Callback    : jack_client_t *       : JackPortRegistrationCallback   : void *
+int              : Set_Port_Connect_Callback         : jack_client_t *       : JackPortConnectCallback        : void *
+int              : Set_Graph_Order_Callback          : jack_client_t *       : JackGraphOrderCallback         : void *
+int              : Set_Xrun_Callback                 : jack_client_t *       : JackXRunCallback               : void *
+int              : Set_Freewheel                     : jack_client_t *       : int
+int              : Set_Buffer_Size                   : jack_client_t *       : jack_nframes_t
+jack_nframes_t   : Get_Sample_Rate                   : jack_client_t *
+jack_nframes_t   : Get_Buffer_Size                   : jack_client_t *
+int              : Engine_Takeover_Timebase          : jack_client_t *
+float            : CPU_Load                          : jack_client_t *
+jack_port_t *    : Port_Register                     : jack_client_t *       : const char *    : const char * : unsigned long : unsigned long
+int              : Port_Unregister                   : jack_client_t *       : jack_port_t *
+void *           : Port_Get_Buffer                   : jack_port_t *         : jack_nframes_t
+const char *     : Port_Name                         : const jack_port_t *
+const char *     : Port_Short_Name                   : const jack_port_t *
+int              : Port_Flags                        : const jack_port_t *
+const char *     : Port_Type                         : const jack_port_t *
+int              : Port_Is_Mine                      : const jack_client_t * : const jack_port_t *
+int              : Port_Connected                    : const jack_port_t *
+int              : Port_Connected_To                 : const jack_port_t *   : const char *
+const char **    : Port_Get_Connections              : const jack_port_t *
+const char **    : Port_Get_All_Connections          : const jack_client_t * : const jack_port_t *
+int              : Port_Tie                          : jack_port_t *         : jack_port_t *
+int              : Port_Untie                        : jack_port_t *
+jack_nframes_t   : Port_Get_Latency                  : jack_port_t *
+jack_nframes_t   : Port_Get_Total_Latency            : jack_client_t *       : jack_port_t *
+void             : Port_Set_Latency                  : jack_port_t *         : jack_nframes_t
+int              : Recompute_Total_Latency           : jack_client_t *       : jack_port_t *
+int              : Recompute_Total_Latencies         : jack_client_t *
+int              : Port_Set_Name                     : jack_port_t *         : const char *
+int              : Port_Set_Alias                    : jack_port_t *         : const char *
+int              : Port_Unset_Alias                  : jack_port_t *         : const char *
+int              : Port_Get_Aliases                  : const jack_port_t *   : char **
+int              : Port_Request_Monitor              : jack_port_t *         : int
+int              : Port_Request_Monitor_By_Name      : jack_client_t *       : const char *   : int
+int              : Port_Ensure_Monitor               : jack_port_t *         : int
+int              : Port_Monitoring_Input             : jack_port_t *
+int              : Connect                           : jack_client_t *       : const char *   : const char *
+int              : Disconnect                        : jack_client_t *       : const char *   : const char *
+int              : Port_Disconnect                   : jack_client_t *       : jack_port_t *
+int              : Port_Name_Size
+int              : Port_Type_Size
+const char **    : Get_Ports                         : jack_client_t *       : const char *   : const char * : unsigned long
+jack_port_t *    : Port_By_Name                      : jack_client_t *       : const char *
+jack_port_t *    : Port_By_ID                        : jack_client_t *       : jack_port_id_t
+jack_nframes_t   : Frames_Since_Cycle_Start          : const jack_client_t *
+jack_nframes_t   : Frame_Time                        : const jack_client_t *
+jack_nframes_t   : Last_Frame_Time                   : const jack_client_t *
+jack_time_t      : Frames_To_Time                    : const jack_client_t * : jack_nframes_t
+jack_nframes_t   : Time_To_Frames                    : const jack_client_t * : jack_time_t
+jack_time_t      : Get_Time
+void             : Set_Error_Function                : void(*)(const char *)
+void             : Set_Info_Function                 : void(*)(const char *)

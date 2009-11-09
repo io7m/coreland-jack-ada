@@ -1,0 +1,75 @@
+Client_Open                       : Client_Name  : Options          : Status
+Client_New                        : Client_Name
+Client_Close                      : Client
+Client_Name_Size
+Get_Client_Name                   : Client
+Internal_Client_New               : Client_Name  : Load_Name        : Load_Init
+Internal_Client_Close             : Client_Name
+Activate                          : Client
+Deactivate                        : Client
+Client_Thread_ID                  : Client
+Is_Realtime                       : Client
+Thread_Wait                       : Client       : Status
+Cycle_Wait                        : Client
+Cycle_Signal                      : Client       : Status
+Set_Process_Thread                : Client       : Callback         : Data
+Set_Thread_Init_Callback          : Client       : Callback         : Data
+On_Shutdown                       : Client       : Callback         : Data
+Set_Process_Callback              : Client       : Callback         : Data
+Set_Freewheel_Callback            : Client       : Callback         : Data
+Set_Buffer_Size_Callback          : Client       : Callback         : Data
+Set_Sample_Rate_Callback          : Client       : Callback         : Data
+Set_Client_Registration_Callback  : Client       : Callback         : Data
+Set_Port_Registration_Callback    : Client       : Callback         : Data
+Set_Port_Connect_Callback         : Client       : Callback         : Data
+Set_Graph_Order_Callback          : Client       : Callback         : Data
+Set_Xrun_Callback                 : Client       : Callback         : Data
+Set_Freewheel                     : Client       : Toggle
+Set_Buffer_Size                   : Client       : Number_Of_Frames
+Get_Sample_Rate                   : Client
+Get_Buffer_Size                   : Client
+Engine_Takeover_Timebase          : Client
+Cpu_Load                          : Client
+Port_Register                     : Client       : Port_Name        : Port_Type : Flags : Buffer_Size
+Port_Unregister                   : Client       : Port
+Port_Get_Buffer                   : Port         : Number_Of_Frames
+Port_Name                         : Port
+Port_Short_Name                   : Port
+Port_Flags                        : Port
+Port_Type                         : Port
+Port_Is_Mine                      : Client       : Port
+Port_Connected                    : Port
+Port_Connected_To                 : Port         : Port_Name
+Port_Get_Connections              : Port
+Port_Get_All_Connections          : Client       : Port
+Port_Tie                          : Source_Port  : Destination_Port
+Port_Untie                        : Port
+Port_Get_Latency                  : Port
+Port_Get_Total_Latency            : Client       : Port
+Port_Set_Latency                  : Port         : Number_Of_Frames
+Recompute_Total_Latency           : Client       : Port
+Recompute_Total_Latencies         : Client
+Port_Set_Name                     : Port         : Port_Name
+Port_Set_Alias                    : Port         : Alias
+Port_Unset_Alias                  : Port         : Alias
+Port_Get_Aliases                  : Port         : Aliases
+Port_Request_Monitor              : Port         : Toggle
+Port_Request_Monitor_By_Name      : Client       : Port_Name  : Toggle
+Port_Ensure_Monitor               : Port         : Toggle
+Port_Monitoring_Input             : Port
+Connect                           : Client       : Source_Port : Destination_Port
+Disconnect                        : Client       : Source_Port : Destination_Port
+Port_Disconnect                   : Client       : Port
+Port_Name_Size
+Port_Type_Size
+Get_Ports                         : Client       : Port_Name_Pattern : Type_Name_Pattern : Flags
+Port_By_Name                      : Client       : Port_Name
+Port_By_ID                        : Client       : Port_ID
+Frames_Since_Cycle_Start          : Client
+Frame_Time                        : Client
+Last_Frame_Time                   : Client
+Frames_To_Time                    : Client       : Number_Of_Frames
+Time_To_Frames                    : Client       : Time
+Get_Time
+Set_Error_Function                : Callback
+Set_Info_Function                 : Callback
