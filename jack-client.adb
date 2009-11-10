@@ -1,3 +1,4 @@
+with C_String.Arrays;
 with C_String;
 with Interfaces.C;
 
@@ -6,6 +7,45 @@ package body Jack.Client is
 
   use type Thin.Status_t;
   use type System.Address;
+
+  --
+  -- Get_Ports
+  --
+
+  procedure Get_Ports_Free (Data : System.Address);
+  pragma Import (C, Get_Ports_Free, "jack_ada_client_get_ports_free");
+
+  procedure Get_Ports
+    (Client            : in     Client_t;
+     Port_Name_Pattern : in     String;
+     Port_Type_Pattern : in     String;
+     Port_Flags        : in     Port_Flags_t;
+     Ports             :    out Port_Name_Set_t)
+  is
+    Name    : Port_Name_t;
+    Size    : Natural;
+    C_Flags : constant Thin.Port_Flags_t := Map_Port_Flags_To_Thin (Port_Flags);
+    C_Name  : aliased C.char_array       := C.To_C (Port_Name_Pattern);
+    C_Type  : aliased C.char_array       := C.To_C (Port_Type_Pattern);
+    Address : constant C_String.Arrays.Pointer_Array_t :=
+      Thin.Get_Ports
+        (Client            => System.Address (Client),
+         Port_Name_Pattern => C_String.To_C_String (C_Name'Unchecked_Access),
+         Type_Name_Pattern => C_String.To_C_String (C_Type'Unchecked_Access),
+         Flags             => C_Flags);
+  begin
+    Size := C_String.Arrays.Size_Terminated (Address);
+
+    for Index in 0 .. Size loop
+      Port_Names.Set_Bounded_String
+        (Source => C_String.Arrays.Index_Terminated (Address, Index),
+         Target => Name);
+      Port_Name_Sets.Insert (Ports, Name);
+    end loop;
+
+    -- The strings returned by jack_get_ports are heap allocated.
+    Get_Ports_Free (System.Address (Address));
+  end Get_Ports;
 
   --
   -- Status and option mapping.
