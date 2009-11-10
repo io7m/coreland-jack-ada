@@ -24,6 +24,26 @@ package body Jack.Client is
   end Activate;
 
   --
+  -- Connect
+  --
+
+  procedure Connect
+    (Client           : in     Client_t;
+     Source_Port      : in     Port_Name_t;
+     Destination_Port : in     Port_Name_t;
+     Failed           :    out Boolean)
+  is
+    C_Source : aliased C.char_array := C.To_C (Port_Names.To_String (Source_Port));
+    C_Dest   : aliased C.char_array := C.To_C (Port_Names.To_String (Destination_Port));
+    C_Result : constant C.int := Thin.Connect
+      (Client           => System.Address (Client),
+       Source_Port      => C_String.To_C_String (C_Source'Unchecked_Access),
+       Destination_Port => C_String.To_C_String (C_Dest'Unchecked_Access));
+  begin
+    Failed := C_Result /= 0;
+  end Connect;
+
+  --
   -- Get_Ports
   --
 
