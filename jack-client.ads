@@ -60,14 +60,6 @@ package Jack.Client is
      Client      :    out Client_t;
      Status      : in out Status_t);
 
-  -- proc_map : jack_client_open
-  procedure Open_With_Server
-    (Client_Name : in     String;
-     Options     : in     Options_t;
-     Client      :    out Client_t;
-     Status      : in out Status_t;
-     Server_Name : in     String);
-
 private
 
   type Client_t is new System.Address;

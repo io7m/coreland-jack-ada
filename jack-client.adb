@@ -105,15 +105,4 @@ package body Jack.Client is
     end if;
   end Open;
 
-  procedure Open_With_Server
-    (Client_Name : in     String;
-     Options     : in     Options_t;
-     Client      :    out Client_t;
-     Status      : in out Status_t;
-     Server_Name : in     String)
-  is
-  begin
-    null;
-  end Open_With_Server;
-
 end Jack.Client;
