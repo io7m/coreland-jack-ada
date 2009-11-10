@@ -105,6 +105,13 @@ package Jack.Client is
      Destination_Port : in     Port_Name_t;
      Failed           :    out Boolean);
 
+  -- proc_map : jack_disconnect
+  procedure Disconnect
+    (Client           : in     Client_t;
+     Source_Port      : in     Port_Name_t;
+     Destination_Port : in     Port_Name_t;
+     Failed           :    out Boolean);
+
   -- proc_map : jack_client_open
   procedure Open
     (Client_Name : in     String;
