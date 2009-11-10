@@ -24,6 +24,17 @@ package body Jack.Client is
   end Activate;
 
   --
+  -- Close
+  --
+
+  procedure Close
+    (Client : in     Client_t;
+     Failed :    out Boolean) is
+  begin
+    Failed := Thin.Client_Close (System.Address (Client)) /= 0;
+  end Close;
+
+  --
   -- Connect
   --
 

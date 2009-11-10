@@ -98,6 +98,11 @@ package Jack.Client is
   -- API
   --
 
+  -- proc_map : jack_client_close
+  procedure Close
+    (Client : in     Client_t;
+     Failed :    out Boolean);
+
   -- proc_map : jack_connect
   procedure Connect
     (Client           : in     Client_t;
