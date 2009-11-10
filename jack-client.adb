@@ -9,6 +9,19 @@ package body Jack.Client is
   use type System.Address;
 
   --
+  -- Activate
+  --
+
+  procedure Activate
+    (Client : in     Client_t;
+     Failed :    out Boolean)
+  is
+    C_Return : constant C.int := Thin.Activate (System.Address (Client));
+  begin
+    Failed := C_Return /= 0;
+  end Activate;
+
+  --
   -- Get_Ports
   --
 
