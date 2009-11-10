@@ -172,10 +172,10 @@ package body Jack.Client is
      Client      :    out Client_t;
      Status      : in out Status_t)
   is
-    C_Options : constant Thin.Options_t := Map_Options_To_Thin (Options);
-    C_Name    : aliased C.char_array   := C.To_C (Client_Name);
-    C_Status  : aliased Thin.Status_t;
     C_Client  : System.Address;
+    C_Name    : aliased C.char_array    := C.To_C (Client_Name);
+    C_Options : constant Thin.Options_t := Map_Options_To_Thin (Options);
+    C_Status  : aliased Thin.Status_t;
   begin
     C_Client := Thin.Client_Open
       (Client_Name => C_String.To_C_String (C_Name'Unchecked_Access),
