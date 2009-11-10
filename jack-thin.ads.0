@@ -16,6 +16,7 @@ package Jack.Thin is
   subtype Internal_Client_t  is Interfaces.Unsigned_64;
   subtype Number_Of_Frames_t is Interfaces.Unsigned_32;
   subtype Options_t          is C.unsigned;
+  subtype Port_Flags_t       is C.unsigned_long;
   subtype Port_ID_t          is Interfaces.Unsigned_32;
   subtype Status_t           is C.unsigned;
   subtype Time_t             is Interfaces.Unsigned_64;
