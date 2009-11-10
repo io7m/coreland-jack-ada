@@ -5,8 +5,10 @@ with Interfaces.C;
 package body Jack.Client is
   package C renames Interfaces.C;
 
-  use type Thin.Status_t;
+  use type C.int;
   use type System.Address;
+  use type Thin.Port_Flags_t;
+  use type Thin.Status_t;
 
   --
   -- Activate
