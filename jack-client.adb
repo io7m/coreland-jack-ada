@@ -48,7 +48,7 @@ package body Jack.Client is
   end Get_Ports;
 
   --
-  -- Status and option mapping.
+  -- Status, option and flag mapping.
   --
 
   type Status_Map_t is array (Status_Selector_t) of Thin.Status_t;
@@ -75,6 +75,15 @@ package body Jack.Client is
      Load_Name           => Thin.JackLoadName,
      Load_Initialize     => Thin.JackLoadInit);
 
+  type Port_Flags_Map_t is array (Port_Flag_Selector_t) of Thin.Port_Flags_t;
+
+  Port_Flags_Map : constant Port_Flags_Map_t := Port_Flags_Map_t'
+    (Port_Is_Input    => Thin.JackPortIsInput,
+     Port_Is_Output   => Thin.JackPortIsOutput,
+     Port_Is_Physical => Thin.JackPortIsPhysical,
+     Port_Can_Monitor => Thin.JackPortCanMonitor,
+     Port_Is_Terminal => Thin.JackPortIsTerminal);
+
   function Map_Options_To_Thin (Options : Options_t) return Thin.Options_t is
     Return_Options : Thin.Options_t := 0;
   begin
@@ -85,6 +94,17 @@ package body Jack.Client is
     end loop;
     return Return_Options;
   end Map_Options_To_Thin;
+
+  function Map_Port_Flags_To_Thin (Port_Flags : Port_Flags_t) return Thin.Port_Flags_t is
+    Return_Port_Flags : Thin.Port_Flags_t := 0;
+  begin
+    for Selector in Port_Flags_t'Range loop
+      if Port_Flags (Selector) then
+        Return_Port_Flags := Return_Port_Flags or Port_Flags_Map (Selector);
+      end if;
+    end loop;
+    return Return_Port_Flags;
+  end Map_Port_Flags_To_Thin;
 
   function Map_Status_To_Thin (Status : Status_t) return Thin.Status_t is
     Return_Status : Thin.Status_t := 0;
@@ -106,6 +126,16 @@ package body Jack.Client is
     end loop;
     return Return_Options;
   end Map_Thin_To_Options;
+
+  function Map_Thin_To_Port_Flags (Port_Flags : Thin.Port_Flags_t) return Port_Flags_t is
+    Return_Port_Flags : Port_Flags_t := (others => False);
+  begin
+    for Selector in Port_Flags_t'Range loop
+      Return_Port_Flags (Selector) :=
+        (Port_Flags and Port_Flags_Map (Selector)) = Port_Flags_Map (Selector);
+    end loop;
+    return Return_Port_Flags;
+  end Map_Thin_To_Port_Flags;
 
   function Map_Thin_To_Status (Status : Thin.Status_t) return Status_t is
     Return_Status : Status_t := (others => False);
