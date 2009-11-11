@@ -46,6 +46,13 @@ package body Jack.Client is
     return System.Address (Left) = System.Address (Right);
   end Compare;
 
+  function Compare
+    (Left  : in Port_t;
+     Right : in Port_t) return Boolean is
+  begin
+    return System.Address (Left) = System.Address (Right);
+  end Compare;
+
   --
   -- Connect
   --

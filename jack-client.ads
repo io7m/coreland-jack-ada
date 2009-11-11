@@ -84,6 +84,14 @@ package Jack.Client is
 
   Invalid_Port : constant Port_t;
 
+  function Compare
+    (Left  : in Port_t;
+     Right : in Port_t) return Boolean;
+
+  function "="
+    (Left  : in Port_t;
+     Right : in Port_t) return Boolean renames Compare;
+
   --
   -- Port name
   --
