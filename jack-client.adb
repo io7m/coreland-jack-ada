@@ -108,18 +108,28 @@ package body Jack.Client is
      Port_Flags        : in     Port_Flags_t     := (others => False);
      Ports             :    out Port_Name_Set_t)
   is
-    Name    : Port_Name_t;
-    Size    : Natural;
-    C_Flags : constant Thin.Port_Flags_t := Map_Port_Flags_To_Thin (Port_Flags);
-    C_Name  : aliased C.char_array       := C.To_C (Port_Name_Pattern);
-    C_Type  : aliased C.char_array       := C.To_C (Port_Type_Pattern);
-    Address : constant C_String.Arrays.Pointer_Array_t :=
-      Thin.Get_Ports
-        (Client            => System.Address (Client),
-         Port_Name_Pattern => C_String.To_C_String (C_Name'Unchecked_Access),
-         Type_Name_Pattern => C_String.To_C_String (C_Type'Unchecked_Access),
-         Flags             => C_Flags);
+    Name     : Port_Name_t;
+    Size     : Natural;
+    C_Flags  : constant Thin.Port_Flags_t := Map_Port_Flags_To_Thin (Port_Flags);
+    C_Name   : aliased C.char_array       := C.To_C (Port_Name_Pattern);
+    C_Type   : aliased C.char_array       := C.To_C (Port_Type_Pattern);
+    Ptr_Name : C_String.String_Ptr_t;
+    Ptr_Type : C_String.String_Ptr_t;
+    Address  : C_String.Arrays.Pointer_Array_t;
   begin
+    if Port_Name_Pattern /= Port_Names.Null_Bounded_String then
+      Ptr_Name := C_String.To_C_String (C_Name'Unchecked_Access);
+    end if;
+    if Port_Type_Pattern /= "" then
+      Ptr_Type := C_String.To_C_String (C_Type'Unchecked_Access);
+    end if;
+
+    Address := Thin.Get_Ports
+     (Client            => System.Address (Client),
+      Port_Name_Pattern => Ptr_Name,
+      Type_Name_Pattern => Ptr_Type,
+      Flags             => C_Flags);
+
     Size := C_String.Arrays.Size_Terminated (Address);
 
     for Index in 0 .. Size loop
@@ -285,21 +295,11 @@ package body Jack.Client is
     C_Name   : aliased C.char_array       := C.To_C (Port_Names.To_String (Port_Name));
     C_Port   : System.Address;
     C_Type   : aliased C.char_array       := C.To_C (Port_Type);
-    Ptr_Name : C_String.String_Ptr_t;
-    Ptr_Type : C_String.String_Ptr_t;
   begin
-    if Port_Name /= Port_Names.Null_Bounded_String then
-      Ptr_Name := C_String.To_C_String (C_Name'Unchecked_Access);
-    end if;
-
-    if Port_Type /= "" then
-      Ptr_Type := C_String.To_C_String (C_Type'Unchecked_Access);
-    end if;
-
     C_Port := Thin.Port_Register
       (Client      => System.Address (Client),
-       Port_Name   => Ptr_Name,
-       Port_Type   => Ptr_Type,
+       Port_Name   => C_String.To_C_String (C_Name'Unchecked_Access),
+       Port_Type   => C_String.To_C_String (C_Type'Unchecked_Access),
        Flags       => C_Flags,
        Buffer_Size => C.unsigned_long (Buffer_Size));
 
