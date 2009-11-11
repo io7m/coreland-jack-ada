@@ -102,6 +102,9 @@ package Jack.Client is
 
   subtype Port_Name_Set_t is Port_Name_Sets.Set;
 
+  Default_Audio_Type : constant Port_Name_t :=
+    Port_Names.To_Bounded_String ("32 bit float mono audio");
+
   --
   -- API
   --
