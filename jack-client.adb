@@ -274,7 +274,7 @@ package body Jack.Client is
   end Port_Register;
 
   --
-  -- Set_Process_Callback
+  -- Generic_Callbacks
   --
 
   package body Generic_Callbacks is
@@ -317,5 +317,19 @@ package body Jack.Client is
     end Set_Process_Callback;
 
   end Generic_Callbacks;
+
+  --
+  -- To_Address
+  --
+
+  function To_Address (Client : in Client_t) return System.Address is
+  begin
+    return System.Address (Client);
+  end To_Address;
+
+  function To_Address (Port : in Port_t) return System.Address is
+  begin
+    return System.Address (Port);
+  end To_Address;
 
 end Jack.Client;

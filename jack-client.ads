@@ -168,6 +168,16 @@ package Jack.Client is
 
   end Generic_Callbacks;
 
+  --
+  -- Private
+  --
+
+  function To_Address (Client : in Client_t) return System.Address;
+  pragma Inline (To_Address);
+
+  function To_Address (Port : in Port_t) return System.Address;
+  pragma Inline (To_Address);
+
 private
 
   type Client_t is new System.Address;
