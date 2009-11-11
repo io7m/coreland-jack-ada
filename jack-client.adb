@@ -1,6 +1,7 @@
 with C_String.Arrays;
 with C_String;
 with Interfaces.C;
+with System.Address_To_Access_Conversions;
 
 package body Jack.Client is
   package C renames Interfaces.C;
@@ -280,5 +281,50 @@ package body Jack.Client is
       Port := Port_t (C_Port);
     end if;
   end Port_Register;
+
+  --
+  -- Set_Process_Callback
+  --
+
+  package body Generic_Callbacks is
+
+    package Convert_Process is new
+      System.Address_To_Access_Conversions (Process_Callback_State_t);
+
+    function C_Set_Process_Callback
+      (Client   : System.Address;
+       Callback : access procedure
+        (Number_Of_Frames : Thin.Number_Of_Frames_t;
+         Data             : System.Address);
+       Data     : System.Address) return Thin.Integer_t;
+    pragma Import (C, C_Set_Process_Callback, "jack_set_process_callback");
+
+    procedure Process_Callback_Inner
+      (Number_Of_Frames : Thin.Number_Of_Frames_t;
+       Data             : System.Address)
+    is
+      State : Process_Callback_State_t;
+      for State'Address use Data;
+    begin
+      State.Callback
+        (Number_Of_Frames => Number_Of_Frames_t (Number_Of_Frames),
+         User_Data        => State.User_Data);
+    end Process_Callback_Inner;
+
+    procedure Set_Process_Callback
+      (Client    : in     Client_t;
+       State     : in     Process_Callback_State_Access_t;
+       Failed    :    out Boolean)
+    is
+      Pointer : constant Convert_Process.Object_Pointer :=
+        Convert_Process.Object_Pointer (State);
+    begin
+      Failed := 0 /= C_Set_Process_Callback
+        (Client   => System.Address (Client),
+         Callback => Process_Callback_Inner'Access,
+         Data     => Convert_Process.To_Address (Pointer));
+    end Set_Process_Callback;
+
+  end Generic_Callbacks;
 
 end Jack.Client;

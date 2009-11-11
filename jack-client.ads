@@ -1,15 +1,17 @@
 with Ada.Containers.Ordered_Sets;
 with Ada.Strings.Bounded;
 with Jack.Thin;
-with Jack.Types;
 with System;
 
-generic
-  with package Types is new Jack.Types (<>);
+pragma Elaborate_All (Jack.Thin);
 
 package Jack.Client is
 
-  subtype Sample_Type_t is Types.Sample_Type_t;
+  --
+  -- Types.
+  --
+
+  type Number_Of_Frames_t is new Thin.Number_Of_Frames_t;
 
   --
   -- Options
@@ -145,6 +147,29 @@ package Jack.Client is
      Port_Type_Pattern : in     String;
      Port_Flags        : in     Port_Flags_t;
      Ports             :    out Port_Name_Set_t);
+
+  generic
+    type User_Data_Type is private;
+    type User_Data_Access_Type is access User_Data_Type;
+
+  package Generic_Callbacks is
+
+    type Process_Callback_State_t is record
+      Callback  : access procedure
+        (Number_Of_Frames : in Number_Of_Frames_t;
+         User_Data        : in User_Data_Access_Type);
+      User_Data : User_Data_Access_Type;
+    end record;
+
+    type Process_Callback_State_Access_t is access Process_Callback_State_t;
+
+    -- proc_map : jack_set_process_callback
+    procedure Set_Process_Callback
+      (Client    : in     Client_t;
+       State     : in     Process_Callback_State_Access_t;
+       Failed    :    out Boolean);
+
+  end Generic_Callbacks;
 
 private
 
