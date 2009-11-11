@@ -58,7 +58,7 @@ package body Jack.Client is
   is
     C_Source : aliased C.char_array := C.To_C (Port_Names.To_String (Source_Port));
     C_Dest   : aliased C.char_array := C.To_C (Port_Names.To_String (Destination_Port));
-    C_Result : constant C.int := Thin.Connect
+    C_Result : constant C.int       := Thin.Connect
       (Client           => System.Address (Client),
        Source_Port      => C_String.To_C_String (C_Source'Unchecked_Access),
        Destination_Port => C_String.To_C_String (C_Dest'Unchecked_Access));
@@ -78,7 +78,7 @@ package body Jack.Client is
   is
     C_Source : aliased C.char_array := C.To_C (Port_Names.To_String (Source_Port));
     C_Dest   : aliased C.char_array := C.To_C (Port_Names.To_String (Destination_Port));
-    C_Result : constant C.int := Thin.Disconnect
+    C_Result : constant C.int       := Thin.Disconnect
       (Client           => System.Address (Client),
        Source_Port      => C_String.To_C_String (C_Source'Unchecked_Access),
        Destination_Port => C_String.To_C_String (C_Dest'Unchecked_Access));
@@ -235,12 +235,20 @@ package body Jack.Client is
      Client      :    out Client_t;
      Status      : in out Status_t)
   is
+    function C_Client_Open
+      (Client_Name : C_String.String_Not_Null_Ptr_t;
+       Options     : Thin.Options_t;
+       Status      : System.Address) return System.Address;
+    pragma Import (C, C_Client_Open, "jack_ada_client_open");
+
     C_Client  : System.Address;
     C_Name    : aliased C.char_array    := C.To_C (Client_Name);
     C_Options : constant Thin.Options_t := Map_Options_To_Thin (Options);
-    C_Status  : aliased Thin.Status_t;
+    C_Status  : aliased Thin.Status_t   := 0;
   begin
-    C_Client := Thin.Client_Open
+    pragma Assert (Client_Name /= "");
+
+    C_Client := C_Client_Open
       (Client_Name => C_String.To_C_String (C_Name'Unchecked_Access),
        Options     => C_Options,
        Status      => C_Status'Address);
