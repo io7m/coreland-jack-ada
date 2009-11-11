@@ -7,6 +7,7 @@ package body Jack.Client is
   package C renames Interfaces.C;
 
   use type C.int;
+  use type Port_Name_t;
   use type System.Address;
   use type Thin.Port_Flags_t;
   use type Thin.Status_t;
@@ -275,20 +276,30 @@ package body Jack.Client is
   procedure Port_Register
     (Client      : in     Client_t;
      Port        :    out Port_t;
-     Port_Name   : in     Port_Name_t;
-     Port_Type   : in     String;
-     Port_Flags  : in     Port_Flags_t;
-     Buffer_Size : in     Natural := 0)
+     Port_Name   : in     Port_Name_t  := Port_Names.Null_Bounded_String;
+     Port_Type   : in     String       := "";
+     Port_Flags  : in     Port_Flags_t := (others => False);
+     Buffer_Size : in     Natural      := 0)
   is
-    C_Flags : constant Thin.Port_Flags_t := Map_Port_Flags_To_Thin (Port_Flags);
-    C_Name  : aliased C.char_array       := C.To_C (Port_Names.To_String (Port_Name));
-    C_Port  : System.Address;
-    C_Type  : aliased C.char_array       := C.To_C (Port_Type);
+    C_Flags  : constant Thin.Port_Flags_t := Map_Port_Flags_To_Thin (Port_Flags);
+    C_Name   : aliased C.char_array       := C.To_C (Port_Names.To_String (Port_Name));
+    C_Port   : System.Address;
+    C_Type   : aliased C.char_array       := C.To_C (Port_Type);
+    Ptr_Name : C_String.String_Ptr_t;
+    Ptr_Type : C_String.String_Ptr_t;
   begin
+    if Port_Name /= Port_Names.Null_Bounded_String then
+      Ptr_Name := C_String.To_C_String (C_Name'Unchecked_Access);
+    end if;
+
+    if Port_Type /= "" then
+      Ptr_Type := C_String.To_C_String (C_Type'Unchecked_Access);
+    end if;
+
     C_Port := Thin.Port_Register
       (Client      => System.Address (Client),
-       Port_Name   => C_String.To_C_String (C_Name'Unchecked_Access),
-       Port_Type   => C_String.To_C_String (C_Type'Unchecked_Access),
+       Port_Name   => Ptr_Name,
+       Port_Type   => Ptr_Type,
        Flags       => C_Flags,
        Buffer_Size => C.unsigned_long (Buffer_Size));
 

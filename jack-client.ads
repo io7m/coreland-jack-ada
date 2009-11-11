@@ -152,10 +152,10 @@ package Jack.Client is
   procedure Port_Register
     (Client      : in     Client_t;
      Port        :    out Port_t;
-     Port_Name   : in     Port_Name_t;
-     Port_Type   : in     String;
-     Port_Flags  : in     Port_Flags_t;
-     Buffer_Size : in     Natural := 0);
+     Port_Name   : in     Port_Name_t  := Port_Names.Null_Bounded_String;
+     Port_Type   : in     String       := "";
+     Port_Flags  : in     Port_Flags_t := (others => False);
+     Buffer_Size : in     Natural      := 0);
 
   -- proc_map : jack_activate
   procedure Activate
