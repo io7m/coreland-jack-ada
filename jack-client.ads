@@ -1,5 +1,6 @@
 with Ada.Containers.Ordered_Sets;
 with Ada.Strings.Bounded;
+with Ada.Strings;
 with Ada.Unchecked_Deallocation;
 with Jack.Thin;
 with System;
@@ -92,6 +93,11 @@ package Jack.Client is
 
   package Port_Names is new
     Ada.Strings.Bounded.Generic_Bounded_Length (Port_Name_Index_t'Last);
+
+  function To_Port_Name
+    (Input : in String;
+     Drop  : in Ada.Strings.Truncation := Ada.Strings.Error)
+    return Port_Names.Bounded_String renames Port_Names.To_Bounded_String;
 
   subtype Port_Name_t is Port_Names.Bounded_String;
 
