@@ -78,10 +78,7 @@ package Jack.Client is
   -- Port name
   --
 
-  function Port_Name_Size return Natural;
-  pragma Inline (Port_Name_Size);
-
-  subtype Port_Name_Size_t  is Natural          range 0 .. Port_Name_Size;
+  subtype Port_Name_Size_t  is Natural          range 0 .. Natural (Thin.Port_Name_Size);
   subtype Port_Name_Index_t is Port_Name_Size_t range 1 .. Port_Name_Size_t'Last;
 
   package Port_Names is new

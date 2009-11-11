@@ -243,15 +243,6 @@ package body Jack.Client is
   end Open;
 
   --
-  -- Port_Name_Size
-  --
-
-  function Port_Name_Size return Natural is
-  begin
-    return Natural (Thin.Port_Name_Size);
-  end Port_Name_Size;
-
-  --
   -- Port_Register
   --
 
