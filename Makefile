@@ -7,8 +7,8 @@ local ctxt/bindir.o ctxt/ctxt.a ctxt/dlibdir.o ctxt/incdir.o ctxt/repos.o \
 ctxt/slibdir.o ctxt/version.o deinstaller deinstaller.o install-core.o \
 install-error.o install-posix.o install-win32.o install.a installer installer.o \
 instchk instchk.o insthier.o jack-ada-conf jack-ada-conf.o jack-ada.a \
-jack-client.ali jack-client.o jack-enum jack-enum.o jack-thin.ali jack-thin.o \
-jack.ali jack.o jack_client.o
+jack-client.ali jack-client.o jack-enum jack-enum.o jack-port.ali jack-port.o \
+jack-thin.ali jack-thin.o jack.ali jack.o jack_client.o
 
 # Mkf-deinstall
 deinstall: deinstaller conf-sosuffix
@@ -270,6 +270,13 @@ jack-enum.o:\
 cc-compile jack-enum.c
 	./cc-compile jack-enum.c
 
+jack-port.ads:\
+jack.ali jack-client.ali
+
+jack-port.o jack-port.ali:\
+ada-compile jack-port.adb jack.ali jack-port.ads jack-thin.ali
+	./ada-compile jack-port.adb
+
 # jack-thin.ads.mff
 jack-thin.ads:  \
 jack-thin.ads.0 \
@@ -338,7 +345,8 @@ obj_clean:
 	install-core.o install-error.o install-posix.o install-win32.o install.a \
 	installer installer.o instchk instchk.o insthier.o jack-ada-conf \
 	jack-ada-conf.o jack-ada.a jack-client.ali jack-client.o jack-enum jack-enum.o \
-	jack-thin.ads jack-thin.ali jack-thin.o jack.ali jack.o jack_client.o
+	jack-port.ali jack-port.o jack-thin.ads jack-thin.ali jack-thin.o jack.ali \
+	jack.o jack_client.o
 ext_clean:
 	rm -f conf-adatype conf-cctype conf-ldtype conf-sosuffix conf-systype mk-ctxt
 

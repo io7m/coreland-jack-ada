@@ -3,6 +3,10 @@
 pragma source_file_name(Jack.Client, spec_file_name => "jack-client.ads");
 pragma source_file_name(Jack.Client, body_file_name => "jack-client.adb");
 
+-- ./jack-port.apk
+pragma source_file_name(Jack.Port, spec_file_name => "jack-port.ads");
+pragma source_file_name(Jack.Port, body_file_name => "jack-port.adb");
+
 -- ./jack-thin.apk
 pragma source_file_name(Jack.Thin, spec_file_name => "jack-thin.ads");
 
