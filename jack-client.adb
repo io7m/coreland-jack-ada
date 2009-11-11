@@ -333,6 +333,7 @@ package body Jack.Client is
     is
       State : Process_Callback_State_t;
       for State'Address use Data;
+      pragma Import (Ada, State);
     begin
       State.Callback
         (Number_Of_Frames => Number_Of_Frames_t (Number_Of_Frames),
