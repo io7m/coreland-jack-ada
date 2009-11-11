@@ -130,17 +130,20 @@ package body Jack.Client is
       Type_Name_Pattern => Ptr_Type,
       Flags             => C_Flags);
 
-    Size := C_String.Arrays.Size_Terminated (Address);
+    if Address /= System.Null_Address then
+      Size := C_String.Arrays.Size_Terminated (Address);
+      if Size > 0 then
+        for Index in 0 .. Size - 1 loop
+          Port_Names.Set_Bounded_String
+            (Source => C_String.Arrays.Index_Terminated (Address, Index),
+             Target => Name);
+          Port_Name_Sets.Insert (Ports, Name);
+        end loop;
+      end if;
 
-    for Index in 0 .. Size loop
-      Port_Names.Set_Bounded_String
-        (Source => C_String.Arrays.Index_Terminated (Address, Index),
-         Target => Name);
-      Port_Name_Sets.Insert (Ports, Name);
-    end loop;
-
-    -- The strings returned by jack_get_ports are heap allocated.
-    Get_Ports_Free (System.Address (Address));
+      -- The strings returned by jack_get_ports are heap allocated.
+      Get_Ports_Free (System.Address (Address));
+    end if;
   end Get_Ports;
 
   --
