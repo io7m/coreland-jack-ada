@@ -152,8 +152,8 @@ package Jack.Client is
   procedure Port_Register
     (Client      : in     Client_t;
      Port        :    out Port_t;
-     Port_Name   : in     Port_Name_t  := Port_Names.Null_Bounded_String;
-     Port_Type   : in     String       := "";
+     Port_Name   : in     Port_Name_t;
+     Port_Type   : in     String       := Default_Audio_Type;
      Port_Flags  : in     Port_Flags_t := (others => False);
      Buffer_Size : in     Natural      := 0);
 
@@ -165,9 +165,9 @@ package Jack.Client is
   -- proc_map : jack_get_ports
   procedure Get_Ports
     (Client            : in     Client_t;
-     Port_Name_Pattern : in     String;
-     Port_Type_Pattern : in     String;
-     Port_Flags        : in     Port_Flags_t;
+     Port_Name_Pattern : in     String           := "";
+     Port_Type_Pattern : in     String           := "";
+     Port_Flags        : in     Port_Flags_t     := (others => False);
      Ports             :    out Port_Name_Set_t);
 
   generic
