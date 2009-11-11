@@ -11,7 +11,7 @@ JackThreadInitCallback         : Thread_Init_Callback_t                   : priv
 JackXRunCallback               : XRun_Callback_t                          : private
 char *                         : C_String.Char_Array_Ptr_t                : private
 char **                        : C_String.Arrays.Pointer_Array_t          : private
-const char *                   : C_String.String_Not_Null_Ptr_t           : private
+const char *                   : C_String.String_Ptr_t                    : private
 const char **                  : C_String.Arrays.Pointer_Array_t          : private
 const jack_client_t *          : System.Address                           : address
 const jack_port_t *            : System.Address                           : address
