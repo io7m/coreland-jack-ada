@@ -1,5 +1,6 @@
 with Ada.Containers.Ordered_Sets;
 with Ada.Strings.Bounded;
+with Ada.Unchecked_Deallocation;
 with Jack.Thin;
 with System;
 
@@ -65,6 +66,14 @@ package Jack.Client is
   type Client_t is limited private;
 
   Invalid_Client : constant Client_t;
+
+  function Compare
+    (Left  : in Client_t;
+     Right : in Client_t) return Boolean;
+
+  function "="
+    (Left  : in Client_t;
+     Right : in Client_t) return Boolean renames Compare;
 
   --
   -- Port
@@ -146,7 +155,7 @@ package Jack.Client is
      Ports             :    out Port_Name_Set_t);
 
   generic
-    type User_Data_Type is private;
+    type User_Data_Type        is private;
     type User_Data_Access_Type is access User_Data_Type;
 
   package Generic_Callbacks is
@@ -159,6 +168,10 @@ package Jack.Client is
     end record;
 
     type Process_Callback_State_Access_t is access Process_Callback_State_t;
+
+    procedure Deallocate_State is new Ada.Unchecked_Deallocation
+      (Object => User_Data_Type,
+       Name   => User_Data_Access_Type);
 
     -- proc_map : jack_set_process_callback
     procedure Set_Process_Callback
