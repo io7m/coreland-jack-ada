@@ -30,6 +30,17 @@ package body Jack.Port is
   end Flags;
 
   --
+  -- Get_Type
+  --
+
+  function Get_Type
+    (Port : in Client.Port_t) return Client.Port_Type_t is
+  begin
+    return Client.To_Port_Type
+      (C_String.To_String (Thin.Port_Type (Client.To_Address (Port))));
+  end Get_Type;
+
+  --
   -- Name
   --
 

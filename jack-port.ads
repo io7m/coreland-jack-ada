@@ -16,6 +16,10 @@ package Jack.Port is
   function Flags
     (Port : in Client.Port_t) return Client.Port_Flags_t;
 
+  -- proc_map : jack_port_type
+  function Get_Type
+    (Port : in Client.Port_t) return Client.Port_Type_t;
+
   -- proc_map : jack_port_name
   function Name
     (Port : in Client.Port_t) return Client.Port_Name_t;
