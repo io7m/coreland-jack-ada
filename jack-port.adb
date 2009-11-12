@@ -88,26 +88,4 @@ package body Jack.Port is
       (C_String.To_String (Thin.Port_Short_Name (Client.To_Address (Port))));
   end Short_Name;
 
-  --
-  -- Tie
-  --
-
-  function Tie
-    (Source : in Client.Port_t;
-     Target : in Client.Port_t) return Boolean is
-  begin
-    return 1 = Thin.Port_Tie
-      (Client.To_Address (Source),
-       Client.To_Address (Target));
-  end Tie;
-
-  --
-  -- Untie
-  --
-
-  function Untie (Source : in Client.Port_t) return Boolean is
-  begin
-    return 1 = Thin.Port_Untie (Client.To_Address (Source));
-  end Untie;
-
 end Jack.Port;
