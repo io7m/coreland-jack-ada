@@ -36,4 +36,12 @@ package Jack.Port is
   function Short_Name
     (Port : in Client.Port_t) return Client.Port_Name_t;
 
+  -- proc_map : jack_port_tie
+  function Tie
+    (Source : in Client.Port_t;
+     Target : in Client.Port_t) return Boolean;
+
+  -- proc_map : jack_port_untie
+  function Untie (Source : in Client.Port_t) return Boolean;
+
 end Jack.Port;
