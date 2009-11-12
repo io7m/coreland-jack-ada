@@ -57,4 +57,10 @@ package Jack.Port is
   function Short_Name
     (Port : in Jack.Client.Port_t) return Jack.Client.Port_Name_t;
 
+  -- proc_map : jack_port_unset_alias
+  procedure Unset_Alias
+    (Port       : in     Jack.Client.Port_t;
+     Port_Alias : in     Jack.Client.Port_Name_t;
+     Failed     :    out Boolean);
+
 end Jack.Port;
