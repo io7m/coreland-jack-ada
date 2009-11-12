@@ -18,9 +18,6 @@ jack_ada_client_open
 void
 jack_ada_client_get_ports_free (char **names)
 {
-  unsigned int index = 0;
-
   assert (names != NULL);
-
   free (names);
 }
