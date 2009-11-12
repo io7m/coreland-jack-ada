@@ -373,6 +373,31 @@ package body Jack.Client is
   end Generic_Callbacks;
 
   --
+  -- Recompute_Total_Latencies
+  --
+
+  procedure Recompute_Total_Latencies
+    (Client : in     Client_t;
+     Failed :    out Boolean) is
+  begin
+    Failed := 1 = Thin.Recompute_Total_Latencies (To_Address (Client));
+  end Recompute_Total_Latencies;
+
+  --
+  -- Recompute_Total_Latency
+  --
+
+  procedure Recompute_Total_Latency
+    (Client : in     Client_t;
+     Port   : in     Port_t;
+     Failed :    out Boolean) is
+  begin
+    Failed := 1 = Thin.Recompute_Total_Latency
+      (Client => To_Address (Client),
+       Port   => To_Address (Port));
+  end Recompute_Total_Latency;
+
+  --
   -- To_Address
   --
 

@@ -231,6 +231,17 @@ package Jack.Client is
     (Client : in Client_t;
      Port   : in Port_t) return Number_Of_Frames_t;
 
+  -- proc_map : jack_recompute_total_latency
+  procedure Recompute_Total_Latency
+    (Client : in     Client_t;
+     Port   : in     Port_t;
+     Failed :    out Boolean);
+
+  -- proc_map : jack_recompute_total_latencies
+  procedure Recompute_Total_Latencies
+    (Client : in     Client_t;
+     Failed :    out Boolean);
+
   --
   -- Private (but required by other modules)
   --
