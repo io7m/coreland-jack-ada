@@ -9,35 +9,40 @@ package Jack.Port is
 
   -- proc_map : jack_port_get_buffer
   function Buffer_Address
-    (Port             : in Client.Port_t;
-     Number_Of_Frames : in Client.Number_Of_Frames_t) return System.Address;
+    (Port             : in Jack.Client.Port_t;
+     Number_Of_Frames : in Jack.Client.Number_Of_Frames_t) return System.Address;
 
   -- proc_map : jack_port_connected
-  function Connected (Port : in Client.Port_t) return Boolean;
+  function Connected (Port : in Jack.Client.Port_t) return Boolean;
 
   -- proc_map : jack_port_connected_to
   function Connected_To
-    (Port      : in Client.Port_t;
-     Port_Name : in Client.Port_Name_t) return Boolean;
+    (Port      : in Jack.Client.Port_t;
+     Port_Name : in Jack.Client.Port_Name_t) return Boolean;
 
   -- proc_map : jack_port_flags
   function Flags
-    (Port : in Client.Port_t) return Client.Port_Flags_t;
+    (Port : in Jack.Client.Port_t) return Jack.Client.Port_Flags_t;
 
   -- proc_map : jack_port_type
   function Get_Type
-    (Port : in Client.Port_t) return Client.Port_Type_t;
+    (Port : in Jack.Client.Port_t) return Jack.Client.Port_Type_t;
 
   -- proc_map : jack_port_get_latency
   function Latency
-    (Port : in Client.Port_t) return Client.Number_Of_Frames_t;
+    (Port : in Jack.Client.Port_t) return Jack.Client.Number_Of_Frames_t;
 
   -- proc_map : jack_port_name
   function Name
-    (Port : in Client.Port_t) return Client.Port_Name_t;
+    (Port : in Jack.Client.Port_t) return Jack.Client.Port_Name_t;
+
+  -- proc_map : jack_port_set_latency
+  procedure Set_Latency
+    (Port    : in Jack.Client.Port_t;
+     Latency : in Jack.Client.Number_Of_Frames_t);
 
   -- proc_map : jack_port_short_name
   function Short_Name
-    (Port : in Client.Port_t) return Client.Port_Name_t;
+    (Port : in Jack.Client.Port_t) return Jack.Client.Port_Name_t;
 
 end Jack.Port;
