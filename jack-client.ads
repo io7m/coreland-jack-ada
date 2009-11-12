@@ -198,7 +198,7 @@ package Jack.Client is
   end Generic_Callbacks;
 
   --
-  -- Private
+  -- Private (but required by other modules)
   --
 
   function To_Address (Client : in Client_t) return System.Address;
@@ -206,14 +206,6 @@ package Jack.Client is
 
   function To_Address (Port : in Port_t) return System.Address;
   pragma Inline (To_Address);
-
-private
-
-  type Client_t is new System.Address;
-  type Port_t   is new System.Address;
-
-  Invalid_Client : constant Client_t := Client_t (System.Null_Address);
-  Invalid_Port   : constant Port_t   := Port_t (System.Null_Address);
 
   function Map_Status_To_Thin (Status : Status_t) return Thin.Status_t;
   pragma Inline (Map_Status_To_Thin);
@@ -232,5 +224,13 @@ private
 
   function Map_Thin_To_Port_Flags (Port_Flags : Thin.Port_Flags_t) return Port_Flags_t;
   pragma Inline (Map_Thin_To_Port_Flags);
+
+private
+
+  type Client_t is new System.Address;
+  type Port_t   is new System.Address;
+
+  Invalid_Client : constant Client_t := Client_t (System.Null_Address);
+  Invalid_Port   : constant Port_t   := Port_t (System.Null_Address);
 
 end Jack.Client;
