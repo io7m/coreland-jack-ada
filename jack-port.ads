@@ -28,7 +28,7 @@ package Jack.Port is
   function Get_Type
     (Port : in Client.Port_t) return Client.Port_Type_t;
 
-  -- proc_map : jack_get_latency
+  -- proc_map : jack_port_get_latency
   function Latency
     (Port : in Client.Port_t) return Client.Number_Of_Frames_t;
 
