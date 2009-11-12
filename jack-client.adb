@@ -283,6 +283,19 @@ package body Jack.Client is
   end Open;
 
   --
+  -- Port_Is_Mine
+  --
+
+  function Port_Is_Mine
+    (Client : in Client_t;
+     Port   : in Port_t) return Boolean is
+  begin
+    return 1 = Thin.Port_Is_Mine
+      (Client => To_Address (Client),
+       Port   => To_Address (Port));
+  end Port_Is_Mine;
+
+  --
   -- Port_Register
   --
 

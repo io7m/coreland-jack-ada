@@ -221,6 +221,12 @@ package Jack.Client is
 
   end Generic_Callbacks;
 
+  -- proc_map : jack_port_is_mine
+  function Port_Is_Mine
+    (Client : in Client_t;
+     Port   : in Port_t) return Boolean;
+  pragma Inline (Port_Is_Mine);
+
   --
   -- Private (but required by other modules)
   --
