@@ -186,6 +186,11 @@ package Jack.Client is
     (Client : in     Client_t;
      Failed :    out Boolean);
 
+  -- proc_map : jack_deactivate
+  procedure Deactivate
+    (Client : in     Client_t;
+     Failed :    out Boolean);
+
   -- proc_map : jack_get_ports
   procedure Get_Ports
     (Client            : in     Client_t;

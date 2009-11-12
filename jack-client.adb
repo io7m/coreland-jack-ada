@@ -75,6 +75,17 @@ package body Jack.Client is
   end Connect;
 
   --
+  -- Deactivate
+  --
+
+  procedure Deactivate
+    (Client : in     Client_t;
+     Failed :    out Boolean) is
+  begin
+    Failed := 0 /= Thin.Deactivate (To_Address (Client));
+  end Deactivate;
+
+  --
   -- Disconnect
   --
 
