@@ -117,6 +117,30 @@ package Jack.Client is
   subtype Port_Name_Set_t is Port_Name_Sets.Set;
 
   --
+  -- Port type
+  --
+
+  subtype Port_Type_Size_t  is Natural          range 0 .. Natural (Thin.Port_Type_Size);
+  subtype Port_Type_Index_t is Port_Type_Size_t range 1 .. Port_Type_Size_t'Last;
+
+  package Port_Types is new
+    Ada.Strings.Bounded.Generic_Bounded_Length (Port_Type_Index_t'Last);
+
+  function To_Port_Type
+    (Input : in String;
+     Drop  : in Ada.Strings.Truncation := Ada.Strings.Error)
+    return Port_Types.Bounded_String renames Port_Types.To_Bounded_String;
+
+  subtype Port_Type_t is Port_Types.Bounded_String;
+
+  package Port_Type_Sets is new Ada.Containers.Ordered_Sets
+    (Element_Type => Port_Type_t,
+     "="          => Port_Types."=",
+     "<"          => Port_Types."<");
+
+  subtype Port_Type_Set_t is Port_Type_Sets.Set;
+
+  --
   -- API
   --
 
@@ -146,14 +170,14 @@ package Jack.Client is
      Client      :    out Client_t;
      Status      : in out Status_t);
 
-  Default_Audio_Type : constant String := "32 bit float mono audio";
+  Default_Audio_Type : constant Port_Type_t := To_Port_Type ("32 bit float mono audio");
 
   -- proc_map : jack_port_register
   procedure Port_Register
     (Client      : in     Client_t;
      Port        :    out Port_t;
      Port_Name   : in     Port_Name_t;
-     Port_Type   : in     String       := Default_Audio_Type;
+     Port_Type   : in     Port_Type_t  := Default_Audio_Type;
      Port_Flags  : in     Port_Flags_t := (others => False);
      Buffer_Size : in     Natural      := 0);
 

@@ -290,14 +290,14 @@ package body Jack.Client is
     (Client      : in     Client_t;
      Port        :    out Port_t;
      Port_Name   : in     Port_Name_t;
-     Port_Type   : in     String       := Default_Audio_Type;
+     Port_Type   : in     Port_Type_t  := Default_Audio_Type;
      Port_Flags  : in     Port_Flags_t := (others => False);
      Buffer_Size : in     Natural      := 0)
   is
     C_Flags  : constant Thin.Port_Flags_t := Map_Port_Flags_To_Thin (Port_Flags);
     C_Name   : aliased C.char_array       := C.To_C (Port_Names.To_String (Port_Name));
+    C_Type   : aliased C.char_array       := C.To_C (Port_Types.To_String (Port_Type));
     C_Port   : System.Address;
-    C_Type   : aliased C.char_array       := C.To_C (Port_Type);
   begin
     C_Port := Thin.Port_Register
       (Client      => System.Address (Client),
