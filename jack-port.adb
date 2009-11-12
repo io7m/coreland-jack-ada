@@ -102,6 +102,22 @@ package body Jack.Port is
   end Set_Latency;
 
   --
+  -- Set_Name
+  --
+
+  procedure Set_Name
+    (Port      : in     Jack.Client.Port_t;
+     Port_Name : in     Jack.Client.Port_Name_t;
+     Failed    :    out Boolean)
+  is
+    C_Name : aliased C.char_array := C.To_C (Jack.Client.Port_Names.To_String (Port_Name));
+  begin
+    Failed := 0 = Jack.Thin.Port_Set_Name
+      (Port      => Jack.Client.To_Address (Port),
+       Port_Name => C_String.To_C_String (C_Name'Unchecked_Access));
+  end Set_Name;
+
+  --
   -- Short_Name
   --
 
