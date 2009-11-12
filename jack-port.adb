@@ -89,6 +89,22 @@ package body Jack.Port is
   end Name;
 
   --
+  -- Set_Alias
+  --
+
+  procedure Set_Alias
+    (Port       : in     Jack.Client.Port_t;
+     Port_Alias : in     Jack.Client.Port_Name_t;
+     Failed     :    out Boolean)
+  is
+    C_Alias : aliased C.char_array := C.To_C (Jack.Client.Port_Names.To_String (Port_Alias));
+  begin
+    Failed := 0 = Jack.Thin.Port_Set_Alias
+      (Port  => Jack.Client.To_Address (Port),
+       Alias => C_String.To_C_String (C_Alias'Unchecked_Access));
+  end Set_Alias;
+
+  --
   -- Set_Latency
   --
 

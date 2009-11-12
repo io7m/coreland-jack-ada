@@ -36,6 +36,12 @@ package Jack.Port is
   function Name
     (Port : in Jack.Client.Port_t) return Jack.Client.Port_Name_t;
 
+  -- proc_map : jack_port_set_alias
+  procedure Set_Alias
+    (Port       : in     Jack.Client.Port_t;
+     Port_Alias : in     Jack.Client.Port_Name_t;
+     Failed     :    out Boolean);
+
   -- proc_map : jack_port_set_latency
   procedure Set_Latency
     (Port    : in Jack.Client.Port_t;
