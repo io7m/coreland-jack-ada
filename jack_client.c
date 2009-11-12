@@ -22,9 +22,5 @@ jack_ada_client_get_ports_free (char **names)
 
   assert (names != NULL);
 
-  for (;;) {
-    if (names [index] == NULL) break;
-    free (names [index]);
-    ++index;
-  }
+  free (names);
 }
