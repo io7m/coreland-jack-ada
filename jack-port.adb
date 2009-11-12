@@ -5,6 +5,8 @@ with Jack.Thin;
 package body Jack.Port is
   package C renames Interfaces.C;
 
+  use type C.int;
+
   --
   -- Buffer_Address
   --
@@ -17,6 +19,30 @@ package body Jack.Port is
       (Port             => Client.To_Address (Port),
        Number_Of_Frames => Thin.Number_Of_Frames_t (Number_Of_Frames));
   end Buffer_Address;
+
+  --
+  -- Connected
+  --
+
+  function Connected (Port : in Client.Port_t) return Boolean is
+  begin
+    return 1 = Thin.Port_Connected (Client.To_Address (Port));
+  end Connected;
+
+  --
+  -- Connected_To
+  --
+
+  function Connected_To
+    (Port      : in Client.Port_t;
+     Port_Name : in Client.Port_Name_t) return Boolean
+  is
+    C_Name : aliased C.char_array := C.To_C (Client.Port_Names.To_String (Port_Name));
+  begin
+    return 1 = Thin.Port_Connected_To
+      (Port      => Client.To_Address (Port),
+       Port_Name => C_String.To_C_String (C_Name'Unchecked_Access));
+  end Connected_To;
 
   --
   -- Flags

@@ -12,6 +12,14 @@ package Jack.Port is
     (Port             : in Client.Port_t;
      Number_Of_Frames : in Client.Number_Of_Frames_t) return System.Address;
 
+  -- proc_map : jack_port_connected
+  function Connected (Port : in Client.Port_t) return Boolean;
+
+  -- proc_map : jack_port_connected_to
+  function Connected_To
+    (Port      : in Client.Port_t;
+     Port_Name : in Client.Port_Name_t) return Boolean;
+
   -- proc_map : jack_port_flags
   function Flags
     (Port : in Client.Port_t) return Client.Port_Flags_t;
