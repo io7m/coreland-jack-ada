@@ -67,6 +67,17 @@ package body Jack.Port is
   end Get_Type;
 
   --
+  -- Latency
+  --
+
+  function Latency
+    (Port : in Client.Port_t) return Client.Number_Of_Frames_t is
+  begin
+    return Client.Number_Of_Frames_t
+      (Thin.Port_Get_Latency (Client.To_Address (Port)));
+  end Latency;
+
+  --
   -- Name
   --
 

@@ -386,4 +386,17 @@ package body Jack.Client is
     return System.Address (Port);
   end To_Address;
 
+  --
+  -- Total_Latency
+  --
+
+  function Total_Latency
+    (Client : in Client_t;
+     Port   : in Port_t) return Number_Of_Frames_t is
+  begin
+    return Number_Of_Frames_t (Thin.Port_Get_Total_Latency
+      (Client => To_Address (Client),
+       Port   => To_Address (Port)));
+  end Total_Latency;
+
 end Jack.Client;

@@ -225,7 +225,11 @@ package Jack.Client is
   function Port_Is_Mine
     (Client : in Client_t;
      Port   : in Port_t) return Boolean;
-  pragma Inline (Port_Is_Mine);
+
+  -- proc_map : jack_port_get_total_latency
+  function Total_Latency
+    (Client : in Client_t;
+     Port   : in Port_t) return Number_Of_Frames_t;
 
   --
   -- Private (but required by other modules)
