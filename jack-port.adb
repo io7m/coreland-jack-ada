@@ -1,7 +1,9 @@
 with C_String;
+with Interfaces.C;
 with Jack.Thin;
 
 package body Jack.Port is
+  package C renames Interfaces.C;
 
   --
   -- Buffer_Address
@@ -15,6 +17,17 @@ package body Jack.Port is
       (Port             => Client.To_Address (Port),
        Number_Of_Frames => Thin.Number_Of_Frames_t (Number_Of_Frames));
   end Buffer_Address;
+
+  --
+  -- Flags
+  --
+
+  function Flags
+    (Port : in Client.Port_t) return Client.Port_Flags_t is
+  begin
+    return Client.Map_Thin_To_Port_Flags
+      (C.unsigned_long (Thin.Port_Flags (Client.To_Address (Port))));
+  end Flags;
 
   --
   -- Name
