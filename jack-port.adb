@@ -20,12 +20,22 @@ package body Jack.Port is
   -- Name
   --
 
-  -- proc_map : jack_port_name
   function Name
     (Port : in Client.Port_t) return Client.Port_Name_t is
   begin
     return Client.To_Port_Name
       (C_String.To_String (Thin.Port_Name (Client.To_Address (Port))));
   end Name;
+
+  --
+  -- Short_Name
+  --
+
+  function Short_Name
+    (Port : in Client.Port_t) return Client.Port_Name_t is
+  begin
+    return Client.To_Port_Name
+      (C_String.To_String (Thin.Port_Short_Name (Client.To_Address (Port))));
+  end Short_Name;
 
 end Jack.Port;

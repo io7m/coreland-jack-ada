@@ -16,4 +16,8 @@ package Jack.Port is
   function Name
     (Port : in Client.Port_t) return Client.Port_Name_t;
 
+  -- proc_map : jack_port_short_name
+  function Short_Name
+    (Port : in Client.Port_t) return Client.Port_Name_t;
+
 end Jack.Port;
