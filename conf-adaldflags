@@ -1,3 +1,4 @@
+--GCC=gcc-r155562 --LINK=gcc-r155562
 
 The first line of this file is passed to the Ada linker as extra flags.
 

@@ -252,8 +252,8 @@ cc-compile jack-ada-conf.c ctxt.h
 	./cc-compile jack-ada-conf.c
 
 jack-ada.a:\
-cc-slib jack-ada.sld jack-client.o jack-thin.o jack.o jack_client.o
-	./cc-slib jack-ada jack-client.o jack-thin.o jack.o jack_client.o
+cc-slib jack-ada.sld jack-client.o jack-port.o jack-thin.o jack.o jack_client.o
+	./cc-slib jack-ada jack-client.o jack-port.o jack-thin.o jack.o jack_client.o
 
 jack-client.ads:\
 jack.ali jack-thin.ali
